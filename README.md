@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ピアプロサークル ウェブサイト
 
-## Getting Started
+創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルのホームページです。
 
-First, run the development server:
+## 概要
 
+このプロジェクトは、ピアプロサークルの公式ウェブサイトです。Next.js 15とTailwind CSSを使用して開発されており、レスポンシブデザインでモダンなUIを提供します。
+
+## 機能
+
+### ページ構成
+- **ホーム** (`/`) - サークルの紹介と最新情報
+- **サークルについて** (`/about`) - サークルの理念、歴史、活動内容
+- **作品一覧** (`/works`) - メンバーが制作した作品の紹介
+- **活動記録** (`/activities`) - 過去の活動やイベントの記録
+- **メンバー募集** (`/recruit`) - 新メンバー募集情報
+- **お問い合わせ** (`/contact`) - 問い合わせフォームと連絡先
+
+### 主な特徴
+- **レスポンシブデザイン** - スマートフォンからデスクトップまで対応
+- **モダンなUI** - シンプルで使いやすいデザイン
+- **フィルタリング機能** - 作品一覧でカテゴリー別表示
+- **インタラクティブフォーム** - お問い合わせフォーム
+- **ナビゲーション** - 直感的なメニューシステム
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 15 (App Router)
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS 4
+- **フォント**: Geist Sans/Mono
+- **パッケージマネージャー**: npm
+
+## セットアップ
+
+### 必要な環境
+- Node.js 18.0以上
+- npm
+
+### インストールと起動
+
+1. 依存関係のインストール:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 開発サーバーの起動:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. ブラウザで http://localhost:3000 を開いて確認
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### その他のコマンド
 
-## Learn More
+```bash
+# プロダクションビルド
+npm run build
 
-To learn more about Next.js, take a look at the following resources:
+# プロダクションサーバー起動
+npm run start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# リンター実行
+npm run lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## プロジェクト構造
 
-## Deploy on Vercel
+```
+app/
+├── components/        # 共通コンポーネント
+│   ├── Header.tsx    # ヘッダーナビゲーション
+│   └── Footer.tsx    # フッター
+├── about/            # サークル紹介ページ
+├── works/            # 作品一覧ページ
+├── activities/       # 活動記録ページ
+├── recruit/          # メンバー募集ページ
+├── contact/          # お問い合わせページ
+├── globals.css       # グローバルスタイル
+├── layout.tsx        # ルートレイアウト
+└── page.tsx          # ホームページ
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## サークル情報
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 活動内容
+- イラスト制作
+- 音楽制作
+- 小説執筆
+- 写真撮影
+- 定期勉強会
+- 作品展示会
+
+### 活動詳細
+- **活動日**: 毎週土曜日 14:00〜17:00
+- **活動場所**: 〇〇大学 学生会館2F 第3会議室
+- **活動費**: 月額1,000円
+- **メンバー数**: 25名（2024年12月現在）
+
+### 連絡先
+- **Email**: info@piapuro-circle.com
+- **ウェブサイト**: [ピアプロサークル公式サイト](/)
+
+## 今後の予定
+
+- メンバー専用ページの追加
+- 作品投稿システムの実装
+- イベントカレンダーの追加
+- 多言語対応（英語）
+
+## 開発について
+
+このプロジェクトは [Next.js](https://nextjs.org) をベースにしており、[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) で初期セットアップされています。
+
+### 貢献方法
+プロジェクトへの貢献を歓迎します。バグ報告、機能提案、プルリクエストをお待ちしています。
+
+## ライセンス
+
+このプロジェクトは MIT ライセンスの下で公開されています。
+
+---
+
+**ピアプロサークル** - 創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークル
