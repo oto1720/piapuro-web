@@ -1,91 +1,79 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-8">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
-              工事中
+      {/* ヒーロー画像セクション */}
+      <section className="relative h-[55vh] md:h-[70vh] lg:h-[80vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/piapuro.jpg"
+            alt="福岡大学プログラミングサークル"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+              
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-blue-700 mb-2">
-              福岡大学 プログラミングサークル
-            </h2>
-          </div>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-4xl mx-auto">
-            創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。<br />
-            チームで作品を制作したり、ハッカソン等の外部イベントに参加しています。
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/about"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200"
-            >
-              サークルについて
-            </Link>
-            <Link
-              href="/recruit"
-              className="bg-white hover:bg-gray-50 text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200"
-            >
-              メンバー募集
-            </Link>
+            <p className="text-xl md:text-2xl">
+            
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="py-16">
+      {/* メインコンテンツセクション */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            活動内容
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                </svg>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* 左側: サークル情報 */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  福岡大学 プログラミングサークル
+                </h2>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。<br />
+                  チームで作品を制作したり、ハッカソン等の外部イベントに参加しています。
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">音楽制作</h3>
-              <p className="text-gray-600">
-                DTM、作詞作曲、演奏動画の制作を行っています。
-              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/about"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200 text-center"
+                >
+                  サークルについて
+                </Link>
+                <Link
+                  href="/recruit"
+                  className="bg-white hover:bg-gray-50 text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200 text-center"
+                >
+                  メンバー募集
+                </Link>
+              </div>
             </div>
 
-            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+            {/* 右側: 活動内容カード */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                活動内容
+              </h3>
+              <div className="p-6 bg-white rounded-lg shadow-md">
+                <h4 className="text-lg font-semibold mb-3">こんな活動をしています</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li>・週2回の定期活動</li>
+                  <li>・外部イベント参加</li>
+                  <li>・ハッカソン出場</li>
+                  <li>・展示会・発表会</li>
+                </ul>
               </div>
-              <h3 className="text-xl font-semibold mb-2">イラスト制作</h3>
-              <p className="text-gray-600">
-                デジタルイラスト、キャラクターデザイン、アニメーション制作。
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">動画制作</h3>
-              <p className="text-gray-600">
-                MV制作、ゲーム実況、Vlog、プロモーション動画の制作。
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">プログラミング</h3>
-              <p className="text-gray-600">
-                Webアプリ、ゲーム開発、ツール制作、ハッカソン参加。
-              </p>
             </div>
           </div>
         </div>
