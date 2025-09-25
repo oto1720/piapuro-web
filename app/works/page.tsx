@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const works = [
   {
@@ -9,7 +10,7 @@ const works = [
     category: "イラスト",
     year: "2024",
     description: "故郷の夕日を描いた水彩画です。温かみのある色彩で表現しました。",
-    image: "/placeholder-image.jpg"
+    color: "from-orange-400 to-red-500"
   },
   {
     id: 2,
@@ -18,7 +19,7 @@ const works = [
     category: "音楽",
     year: "2024",
     description: "桜をテーマにしたピアノ曲です。穏やかな春の午後をイメージして作曲しました。",
-    image: "/placeholder-music.jpg"
+    color: "from-pink-400 to-rose-500"
   },
   {
     id: 3,
@@ -27,7 +28,7 @@ const works = [
     category: "小説",
     year: "2023",
     description: "天体観測をする少女の成長を描いた短編小説です。夢と現実の境界を探ります。",
-    image: "/placeholder-book.jpg"
+    color: "from-purple-400 to-indigo-500"
   },
   {
     id: 4,
@@ -36,7 +37,7 @@ const works = [
     category: "写真",
     year: "2024",
     description: "変わりゆく街並みを記録したフォトエッセイ。時間の流れを写真で表現しています。",
-    image: "/placeholder-photo.jpg"
+    color: "from-gray-400 to-slate-500"
   },
   {
     id: 5,
@@ -45,7 +46,7 @@ const works = [
     category: "イラスト",
     year: "2024",
     description: "デジタルペインティングで描いたSF作品。希望に満ちた未来を表現しました。",
-    image: "/placeholder-digital.jpg"
+    color: "from-blue-400 to-cyan-500"
   },
   {
     id: 6,
@@ -54,7 +55,7 @@ const works = [
     category: "音楽",
     year: "2023",
     description: "雨の日の静寂をテーマにした楽曲。ピアノとバイオリンの美しい調和をお楽しみください。",
-    image: "/placeholder-music2.jpg"
+    color: "from-teal-400 to-green-500"
   }
 ];
 
@@ -69,27 +70,29 @@ export default function Works() {
 
   return (
     <div className="min-h-screen bg-white">
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            作品一覧
+      {/* ヒーローセクション */}
+      <section className="py-20 md:py-32">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-gray-900 mb-8 tracking-tight">
+            Works
           </h1>
-          <p className="text-xl text-gray-700">
+          <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
             メンバーが心を込めて制作した作品をご紹介します
           </p>
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+      {/* カテゴリフィルター */}
+      <section className="py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-gray-900 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -97,83 +100,89 @@ export default function Works() {
               </button>
             ))}
           </div>
+        </div>
+      </section>
 
+      {/* 作品グリッド */}
+      <section className="pb-20">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredWorks.map((work) => (
-              <div key={work.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="aspect-w-16 aspect-h-9 bg-gray-200 flex items-center justify-center">
-                  <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    {work.category === "音楽" && (
-                      <svg className="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                      </svg>
-                    )}
-                    {work.category === "イラスト" && (
-                      <svg className="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    )}
-                    {work.category === "小説" && (
-                      <svg className="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
-                    )}
-                    {work.category === "写真" && (
-                      <svg className="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    )}
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      work.category === 'イラスト' ? 'bg-blue-100 text-blue-800' :
-                      work.category === '音楽' ? 'bg-green-100 text-green-800' :
-                      work.category === '小説' ? 'bg-purple-100 text-purple-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
-                      {work.category}
-                    </span>
-                    <span className="text-sm text-gray-500">{work.year}</span>
+              <div key={work.id} className="group cursor-pointer">
+                <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
+                  <div className={`h-64 bg-gradient-to-br ${work.color} relative overflow-hidden`}>
+                    <div className="absolute inset-0 bg-black/10"></div>
+                    <div className="absolute top-6 right-6">
+                      <span className="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {work.year}
+                      </span>
+                    </div>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {work.title}
-                  </h3>
+                  <div className="p-8">
+                    <div className="mb-4">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                        work.category === 'イラスト' ? 'bg-blue-50 text-blue-700' :
+                        work.category === '音楽' ? 'bg-green-50 text-green-700' :
+                        work.category === '小説' ? 'bg-purple-50 text-purple-700' :
+                        'bg-gray-50 text-gray-700'
+                      }`}>
+                        {work.category}
+                      </span>
+                    </div>
 
-                  <p className="text-gray-600 text-sm mb-3">
-                    作者: {work.artist}
-                  </p>
+                    <h3 className="text-2xl font-medium text-gray-900 mb-3 group-hover:text-gray-600 transition-colors">
+                      {work.title}
+                    </h3>
 
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {work.description}
-                  </p>
+                    <p className="text-gray-600 font-light mb-4">
+                      作者: {work.artist}
+                    </p>
+
+                    <p className="text-gray-600 font-light leading-relaxed">
+                      {work.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
           {filteredWorks.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
+            <div className="text-center py-20">
+              <p className="text-lg text-gray-500 font-light">
                 選択されたカテゴリーの作品はありません。
               </p>
             </div>
           )}
+        </div>
+      </section>
 
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-4">
-              作品の詳細や実際の展示については、お気軽にお問い合わせください。
+      {/* CTAセクション */}
+      <section className="py-20 bg-gray-50/50">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-8 tracking-tight">
+              作品について
+            </h2>
+            <p className="text-lg text-gray-600 font-light mb-12 leading-relaxed">
+              作品の詳細や実際の展示については、お気軽にお問い合わせください。<br />
+              また、あなたも私たちと一緒に創作活動を始めませんか？
             </p>
-            <a
-              href="/contact"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
-            >
-              お問い合わせ
-            </a>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link
+                href="/contact"
+                className="inline-block bg-gray-900 text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+              >
+                お問い合わせ
+              </Link>
+              <Link
+                href="/recruit"
+                className="inline-block bg-white border border-gray-300 text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-50 hover:scale-105"
+              >
+                メンバー募集
+              </Link>
+            </div>
           </div>
         </div>
       </section>
