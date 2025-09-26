@@ -77,7 +77,7 @@ export default function Works() {
             Works
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-            メンバーが心を込めて制作した作品をご紹介します
+            メンバーが制作した作品一覧
           </p>
         </div>
       </section>
