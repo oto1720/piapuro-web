@@ -23,7 +23,7 @@ export default function Home() {
               福大ピアプロ
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl font-light opacity-90 mb-12 tracking-wide">
-              創造力と技術で未来を描く
+              {/* 創造力と技術で未来を描く */}
             </p>
             <div className="space-y-4 md:space-y-0 md:space-x-6 md:flex md:justify-center">
               <Link
@@ -56,34 +56,23 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-20 max-w-4xl mx-auto items-start">
             <div className="text-center p-8">
               <div className="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl"></div>
               </div>
               <h3 className="text-2xl font-medium text-gray-900 mb-4">プログラミング</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                Webアプリ、ゲーム開発、ツール制作、ハッカソン参加
+                Webアプリ、ゲーム開発、ハッカソン参加、モバイルアプリ、コンテスト参加
               </p>
             </div>
-
-            <div className="text-center p-8">
-              <div className="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl"></div>
-              </div>
-              <h3 className="text-2xl font-medium text-gray-900 mb-4">デザイン</h3>
-              <p className="text-gray-600 font-light leading-relaxed">
-                UI/UXデザイン、イラスト制作、アニメーション
-              </p>
-            </div>
-
             <div className="text-center p-8">
               <div className="w-20 h-20 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl"></div>
               </div>
               <h3 className="text-2xl font-medium text-gray-900 mb-4">コンテンツ</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                動画制作、音楽制作、Webコンテンツ作成
+                LT会、展示会、交流会
               </p>
             </div>
           </div>
@@ -104,7 +93,7 @@ export default function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">15+</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">7+</div>
               <div className="text-gray-600 font-light">イベント参加</div>
             </div>
             <div className="text-center">
@@ -112,11 +101,11 @@ export default function Home() {
               <div className="text-gray-600 font-light">受賞歴</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">100+</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">10+</div>
               <div className="text-gray-600 font-light">制作作品数</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">45</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">30</div>
               <div className="text-gray-600 font-light">メンバー数</div>
             </div>
           </div>
@@ -142,10 +131,10 @@ export default function Home() {
                 <div className="p-8">
                   <div className="text-sm text-gray-500 font-light mb-3">2024.12.20</div>
                   <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                    コミックマーケット出展決定
+                    仮
                   </h3>
                   <p className="text-gray-600 font-light leading-relaxed">
-                    C105にサークル参加が決定しました。メンバーの作品集やオリジナルグッズを販売予定です。
+                    仮
                   </p>
                 </div>
               </div>
@@ -157,10 +146,10 @@ export default function Home() {
                 <div className="p-8">
                   <div className="text-sm text-gray-500 font-light mb-3">2024.12.15</div>
                   <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-green-600 transition-colors">
-                    冬のイラスト展開催
+                  仮
                   </h3>
                   <p className="text-gray-600 font-light leading-relaxed">
-                    メンバーが制作したイラスト作品の展示会を開催しました。多くの方にご来場いただきました。
+                  仮
                   </p>
                 </div>
               </div>
@@ -172,10 +161,10 @@ export default function Home() {
                 <div className="p-8">
                   <div className="text-sm text-gray-500 font-light mb-3">2024.12.01</div>
                   <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">
-                    ハッカソン最優秀賞受賞
+                  仮
                   </h3>
                   <p className="text-gray-600 font-light leading-relaxed">
-                    福岡IT企業合同ハッカソンにてプログラミングチームが最優秀賞を受賞しました。
+                  仮
                   </p>
                 </div>
               </div>
@@ -210,12 +199,12 @@ export default function Home() {
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
                 <div className="h-56 bg-gradient-to-br from-blue-400 to-purple-500"></div>
                 <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">青春ソング集</h3>
+                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
                   <p className="text-gray-600 font-light mb-4">
-                    メンバーが作詞作曲した青春をテーマにしたオリジナル楽曲集
+                  仮
                   </p>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-blue-600 font-medium">音楽</span>
+                    <span className="text-sm text-blue-600 font-medium">仮</span>
                     <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
                   </div>
                 </div>
@@ -226,12 +215,12 @@ export default function Home() {
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
                 <div className="h-56 bg-gradient-to-br from-green-400 to-blue-500"></div>
                 <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">学習支援アプリ</h3>
+                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
                   <p className="text-gray-600 font-light mb-4">
-                    学生向けのタスク管理と学習記録ができるWebアプリケーション
+                  仮
                   </p>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-green-600 font-medium">プログラミング</span>
+                    <span className="text-sm text-green-600 font-medium">仮</span>
                     <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
                   </div>
                 </div>
@@ -242,12 +231,12 @@ export default function Home() {
               <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
                 <div className="h-56 bg-gradient-to-br from-purple-400 to-pink-500"></div>
                 <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">短編アニメーション</h3>
+                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
                   <p className="text-gray-600 font-light mb-4">
-                    学生生活をテーマにした3分間の短編アニメーション作品
+                  仮
                   </p>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-purple-600 font-medium">動画</span>
+                    <span className="text-sm text-purple-600 font-medium">仮</span>
                     <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
                   </div>
                 </div>

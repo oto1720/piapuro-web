@@ -47,7 +47,6 @@ const benefits = [
 
 const requirements = [
   "創作活動に興味・関心がある方",
-  "定期的な活動に参加できる方",
   "仲間と協調して活動できる方",
   "向上心を持って取り組める方"
 ];
@@ -116,11 +115,11 @@ export default function Recruit() {
               <div className="bg-gray-50 border border-gray-100 rounded-3xl p-8">
                 <div className="space-y-6">
                   {[
-                    { label: "対象", value: "福岡大学の学生（学年不問）" },
-                    { label: "募集人数", value: "10名程度" },
-                    { label: "活動費", value: "月額 1,000円" },
-                    { label: "活動日時", value: "毎週土曜日 14:00〜17:00" },
-                    { label: "活動場所", value: "学生会館2F 第3会議室" }
+                    { label: "対象", value: "学生（ほかの大学でも可）" },
+                    { label: "募集人数", value: "何人でも" },
+                    { label: "活動費", value: "今の所なし" },
+                    { label: "活動日時", value: "毎週月曜日、木曜日 18:00〜20:00" },
+                    { label: "活動場所", value: "福岡大学 14号館 3階" }
                   ].map((item, index) => (
                     <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2">
                       <div className="font-medium text-gray-900 sm:w-24">
@@ -158,59 +157,6 @@ export default function Recruit() {
         </div>
       </section>
 
-      {/* 応募の流れセクション */}
-      <section className="py-20 bg-gray-50/50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
-              応募の流れ
-            </h2>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-12">
-              {[
-                {
-                  step: "01",
-                  title: "お問い合わせ",
-                  description: "お問い合わせフォームまたはメールにて、参加希望の旨をお伝えください。"
-                },
-                {
-                  step: "02",
-                  title: "見学・体験参加",
-                  description: "実際の活動を見学していただき、雰囲気を感じてください。体験参加も大歓迎です。"
-                },
-                {
-                  step: "03",
-                  title: "面談",
-                  description: "簡単な面談を行い、創作への想いや参加動機をお聞かせください。"
-                },
-                {
-                  step: "04",
-                  title: "入会手続き",
-                  description: "入会申込書の記入と活動費のお支払いをお願いします。"
-                }
-              ].map((item, index) => (
-                <div key={index} className="flex items-start gap-8">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-gray-900 rounded-2xl flex items-center justify-center text-white font-light text-lg">
-                      {item.step}
-                    </div>
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <h3 className="text-2xl font-medium text-gray-900 mb-4">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 font-light leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* よくある質問セクション */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -226,8 +172,8 @@ export default function Recruit() {
                 answer: "もちろんです！経験や技術レベルは問いません。みんなで一緒に学び、成長していくことを大切にしています。"
               },
               {
-                question: "活動に必要な道具や材料は自分で用意するのですか？",
-                answer: "基本的な道具は各自でご用意いただきますが、特殊な機材や高価な材料は サークルで共用のものを用意しています。"
+                question: "いるものはありますか？",
+                answer: "基本的にパソコンがあれば大丈夫です。"
               },
               {
                 question: "毎回参加しなければいけませんか？",
@@ -235,7 +181,7 @@ export default function Recruit() {
               },
               {
                 question: "どんなジャンルの創作活動を行っていますか？",
-                answer: "イラスト、音楽、小説、写真など様々なジャンルで活動しています。複数のジャンルに興味がある方も大歓迎です。"
+                answer: "モバイルアプリ開発やweb開発、ゲーム開発をしている人が多いがジャンルは問いません。"
               }
             ].map((faq, index) => (
               <div key={index} className="bg-white border border-gray-100 rounded-3xl p-8">

@@ -28,11 +28,25 @@ export default function About() {
               私たちの理念
             </h2>
           </div>
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed mb-12">
-              福大ピアプロは、創作活動を通じて個人の成長と仲間との絆を深めることを目的として設立されました。
-              切磋琢磨しながら質の高い作品作りを目指しています。
-            </p>
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2">好きなことを通して成長する</h3>
+                <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">好きなことを各自が自由にやっているサークルです。好きなことで成長できたら、ラッキー。</p>
+              </div>
+              <div>
+                <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2">情熱を無駄にしない</h3>
+                <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">プログラミングやゲーム開発などに挑戦したいけれど、何から始めればいいか分からない人の手助けをしたい。</p>
+              </div>
+              <div>
+                <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2">すぐに行動する</h3>
+                <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">やりたい事があれば、すぐに自分から行動しましょう。</p>
+              </div>
+              <div>
+                <h3 className="text-xl md:text-2xl font-medium text-gray-900 mb-2">私たちは対等な関係</h3>
+                <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">学年に関係なく、気楽にフラットに接しましょう。</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -49,24 +63,24 @@ export default function About() {
             <div className="space-y-16">
               {[
                 {
-                  year: "2020",
+                  year: "2023",
                   title: "サークル設立",
-                  description: "創作好きの学生5人で活動を開始"
+                  description: "プロプロという名前で活動"
                 },
                 {
-                  year: "2021",
-                  title: "初の作品展開催",
-                  description: "学内で初めての作品展を成功させる"
+                  year: "2024",
+                  title: "プロプロからピアプロに変更",
+                  description: "ピアサポートとの合併"
                 },
                 {
-                  year: "2022",
+                  year: "2025",
                   title: "メンバー拡充",
                   description: "20名を超えるメンバーが参加"
                 },
                 {
-                  year: "2024",
-                  title: "活動の多様化",
-                  description: "イラスト、音楽、小説など多分野での活動を展開"
+                  year: "2025",
+                  title: "さまざまなイベントに参加",
+                  description: "ハッカソンや展示会等に積極的に参加"
                 }
               ].map((item, index) => (
                 <div key={index} className="relative group">
@@ -104,7 +118,7 @@ export default function About() {
             {[
               {
                 title: "定期勉強会",
-                description: "毎週土曜日に開催される勉強会では、技術共有や作品レビューを行います。お互いの技術を高め合う貴重な時間です。"
+                description: "毎週２回の集まりで、チーム開発やLT会を行なっています"
               },
               {
                 title: "作品制作",
@@ -112,7 +126,7 @@ export default function About() {
               },
               {
                 title: "作品展示",
-                description: "年2回の作品展では、メンバーの作品を一般公開します。来場者からの感想も励みになっています。"
+                description: "年2回ほどの作品展では、メンバーの作品を一般公開します。来場者からの感想も励みになっています。"
               },
               {
                 title: "交流イベント",
@@ -144,19 +158,19 @@ export default function About() {
             {[
               {
                 title: "活動場所",
-                value: "福岡大学\n学生会館2F 第3会議室"
+                value: "福岡大学\n14号館 3階s"
               },
               {
                 title: "活動時間",
-                value: "毎週土曜日\n14:00〜17:00"
+                value: "毎週月曜日、木曜日\n18:00〜20:00"
               },
               {
                 title: "活動費",
-                value: "月額 1,000円\n(会場費・材料費込み)"
+                value: "今の所はないです"
               },
               {
                 title: "メンバー数",
-                value: "現在45名\n(2024年12月時点)"
+                value: "現在25名\n(Discordは100名以上)"
               }
             ].map((item, index) => (
               <div key={index} className="text-center">
@@ -179,7 +193,7 @@ export default function About() {
             <div className="bg-white border border-gray-100 rounded-3xl p-12">
               <p className="text-xl md:text-2xl text-gray-700 font-light leading-relaxed italic mb-8">
                 「創作は一人でも楽しいものですが、仲間がいることでより深く、より広がりを持った活動になります。
-                技術的な向上だけでなく、人としても成長できる場所がピアプロサークルです。
+                技術的な向上だけでなく、人としても成長できる場所が福大ピアプロです。
                 新しい仲間をいつでもお待ちしています。」
               </p>
               <p className="text-gray-600 font-light">
