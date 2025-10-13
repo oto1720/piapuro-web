@@ -22,7 +22,7 @@ const contactMethods = [
     ),
     title: "活動場所",
     description: "見学も大歓迎です",
-    contact: "福岡大学 学生会館2F 第3会議室",
+    contact: "福岡大学 14号餓 3階",
     link: null
   },
   {
@@ -33,7 +33,7 @@ const contactMethods = [
     ),
     title: "活動時間",
     description: "定期活動は毎週開催",
-    contact: "毎週土曜日 14:00〜17:00",
+    contact: "毎週月曜日、木曜日 18:00〜20:00",
     link: null
   }
 ];
@@ -231,11 +231,11 @@ export default function Contact() {
             {[
               {
                 question: "見学はいつでもできますか？",
-                answer: "活動日の毎週土曜日14:00〜17:00の間でしたら、いつでも見学可能です。事前にご連絡いただけるとスムーズです。"
+                answer: "活動日の毎週月曜日、木曜日18:00〜20:00の間でしたら、いつでも見学可能です。"
               },
               {
                 question: "入会に費用はかかりますか？",
-                answer: "月額1,000円の活動費をお願いしています。これには会場費や材料費が含まれています。"
+                answer: "今の所はないです。"
               },
               {
                 question: "どのくらいの経験が必要ですか？",
