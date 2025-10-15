@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Work } from '@/lib/api';
 
 const categories = ["すべて", "イラスト", "音楽", "小説", "写真"];
@@ -11,13 +12,17 @@ interface WorksClientProps {
 
 export default function WorksClient({ initialWorks }: WorksClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
+  const [selectedWorkId, setSelectedWorkId] = useState<number | null>(null);
 
   const filteredWorks = selectedCategory === "すべて"
     ? initialWorks
     : initialWorks.filter(work => work.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div
+      className="min-h-screen bg-white"
+      onClick={() => selectedWorkId && setSelectedWorkId(null)}
+    >
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -56,27 +61,78 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredWorks.map((work) => (
-              <div key={work.id} className="group cursor-pointer">
-                <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                  <div className={`h-64 bg-gradient-to-br ${work.color} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black/10"></div>
+              <div
+                key={work.id}
+                className={`transition-all duration-300 ${
+                  selectedWorkId === work.id ? 'relative z-50' : 'relative z-0'
+                }`}
+              >
+                <div
+                  className={`bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer ${
+                    selectedWorkId === work.id
+                      ? 'shadow-2xl shadow-black/20 scale-105'
+                      : 'hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2'
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedWorkId(selectedWorkId === work.id ? null : work.id);
+                  }}
+                >
+                  {/* 画像エリア */}
+                  <div className="h-64 relative overflow-hidden bg-gray-100">
+                    {work.image ? (
+                      <Image
+                        src={work.image}
+                        alt={work.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                        <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                     <div className="absolute top-6 right-6">
-                      <span className="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-white/90 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
                         {work.year}
                       </span>
                     </div>
+
+                    {/* 詳細ボタン（クリック時に表示） */}
+                    {selectedWorkId === work.id && work.works && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center animate-fade-in">
+                        <a
+                          href={work.works}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
+                        >
+                          詳細を見る
+                        </a>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-8">
-                    <div className="mb-4">
+                    <div className="mb-4 flex items-center gap-2 flex-wrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                         work.category === 'イラスト' ? 'bg-blue-50 text-blue-700' :
                         work.category === '音楽' ? 'bg-green-50 text-green-700' :
                         work.category === '小説' ? 'bg-purple-50 text-purple-700' :
+                        work.category === '写真' ? 'bg-orange-50 text-orange-700' :
                         'bg-gray-50 text-gray-700'
                       }`}>
                         {work.category}
                       </span>
+                      {work.technology && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-600">
+                          {work.technology}
+                        </span>
+                      )}
                     </div>
 
                     <h3 className="text-2xl font-medium text-gray-900 mb-3 group-hover:text-gray-600 transition-colors">
@@ -87,7 +143,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                       作者: {work.artist}
                     </p>
 
-                    <p className="text-gray-600 font-light leading-relaxed">
+                    <p className="text-gray-600 font-light leading-relaxed line-clamp-3">
                       {work.description}
                     </p>
                   </div>
