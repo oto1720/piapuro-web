@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+import Image from 'next/image';
 import { Activity } from '@/lib/api';
 
 interface ActivitiesClientProps {
@@ -6,8 +8,12 @@ interface ActivitiesClientProps {
 }
 
 export default function ActivitiesClient({ activities }: ActivitiesClientProps) {
+  const [selectedActivityId, setSelectedActivityId] = useState<number | null>(null);
   return (
-    <div className="min-h-screen bg-white">
+    <div
+      className="min-h-screen bg-white"
+      onClick={() => selectedActivityId && setSelectedActivityId(null)}
+    >
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -25,16 +31,65 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-16">
             {activities.map((activity) => (
-              <div key={activity.id} className="group">
-                <div className="flex flex-col lg:flex-row items-start gap-12">
-                  <div className="flex-shrink-0 lg:w-1/3">
-                    <div className={`h-64 bg-gradient-to-br ${activity.color} rounded-3xl`}></div>
+              <div
+                key={activity.id}
+                className={`transition-all duration-300 ${
+                  selectedActivityId === activity.id ? 'relative z-50' : 'relative z-0'
+                }`}
+              >
+                <div
+                  className={`flex flex-col lg:flex-row items-start gap-12 transition-all duration-300 cursor-pointer ${
+                    selectedActivityId === activity.id ? 'scale-105' : ''
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedActivityId(selectedActivityId === activity.id ? null : activity.id);
+                  }}
+                >
+                  {/* 画像エリア */}
+                  <div className="flex-shrink-0 lg:w-1/3 w-full">
+                    <div className={`h-64 relative overflow-hidden bg-gray-100 rounded-3xl transition-all duration-300 ${
+                      selectedActivityId === activity.id
+                        ? 'shadow-2xl shadow-black/20 scale-110'
+                        : 'hover:shadow-xl hover:scale-105'
+                    }`}>
+                      {activity.image ? (
+                        <Image
+                          src={activity.image}
+                          alt={activity.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                          <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
+
+                      {/* 詳細ボタン（クリック時に表示） */}
+                      {selectedActivityId === activity.id && activity.active && (
+                        <div className="absolute inset-0 bg-black/60 flex items-center justify-center animate-fade-in">
+                          <a
+                            href={activity.active}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
+                          >
+                            詳細を見る
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex-1 lg:w-2/3">
                     <div className="mb-4">
                       <div className="text-sm text-gray-500 font-light mb-2">
-                        {activity.date}
+                        {activity.year}年
                       </div>
                       <h3 className="text-3xl md:text-4xl font-medium text-gray-900 mb-4">
                         {activity.title}
