@@ -118,7 +118,7 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
                   <div className="flex-1 lg:w-2/3">
                     <div className="mb-4">
                       <div className="text-sm text-gray-500 font-light mb-2">
-                        {activity.year}年
+                        {activity.year}
                       </div>
                       <h3 className="text-3xl md:text-4xl font-medium text-gray-900 mb-4">
                         {activity.title}

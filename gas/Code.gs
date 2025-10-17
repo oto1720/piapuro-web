@@ -91,6 +91,13 @@ function getWorksData() {
       works.push(work);
     }
 
+    // yearで降順（新しい順）にソート
+    works.sort(function(a, b) {
+      var yearA = parseInt(a.year) || 0;
+      var yearB = parseInt(b.year) || 0;
+      return yearB - yearA; // 降順
+    });
+
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
@@ -149,6 +156,13 @@ function getActivitiesData() {
 
       activities.push(activity);
     }
+
+    // yearで降順（新しい順）にソート（日付形式 YYYY/MM/DD に対応）
+    activities.sort(function(a, b) {
+      var dateA = new Date(a.year || '1970/01/01');
+      var dateB = new Date(b.year || '1970/01/01');
+      return dateB.getTime() - dateA.getTime(); // 降順
+    });
 
     return ContentService
       .createTextOutput(JSON.stringify({
