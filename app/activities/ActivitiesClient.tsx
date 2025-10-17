@@ -3,12 +3,20 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Activity } from '@/lib/api';
 
+const categories = ["すべて", "モクモク会", "ハッカソン", "展示会", "懇親会", "イベント"];
+
 interface ActivitiesClientProps {
   activities: Activity[];
 }
 
 export default function ActivitiesClient({ activities }: ActivitiesClientProps) {
+  const [selectedCategory, setSelectedCategory] = useState("すべて");
   const [selectedActivityId, setSelectedActivityId] = useState<number | null>(null);
+
+  const filteredActivities = selectedCategory === "すべて"
+    ? activities
+    : activities.filter(activity => activity.category === selectedCategory);
+
   return (
     <div
       className="min-h-screen bg-white"
@@ -26,11 +34,32 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
         </div>
       </section>
 
+      {/* カテゴリフィルター */}
+      <section className="py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-gray-900 text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 活動タイムライン */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-16">
-            {activities.map((activity) => (
+            {filteredActivities.map((activity) => (
               <div
                 key={activity.id}
                 className={`transition-all duration-300 ${
@@ -95,7 +124,14 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
                         {activity.title}
                       </h3>
                       <div className="flex items-center gap-4 mb-6">
-                        <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                        <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${
+                          activity.category === 'モクモク会' ? 'bg-blue-50 text-blue-700' :
+                          activity.category === 'ハッカソン' ? 'bg-purple-50 text-purple-700' :
+                          activity.category === '展示会' ? 'bg-green-50 text-green-700' :
+                          activity.category === '懇親会' ? 'bg-pink-50 text-pink-700' :
+                          activity.category === 'イベント' ? 'bg-orange-50 text-orange-700' :
+                          'bg-gray-100 text-gray-800'
+                        }`}>
                           {activity.category}
                         </span>
                         <div className="flex items-center text-gray-500 text-sm font-light">
@@ -115,6 +151,14 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
               </div>
             ))}
           </div>
+
+          {filteredActivities.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-lg text-gray-500 font-light">
+                選択されたカテゴリーの活動はありません。
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

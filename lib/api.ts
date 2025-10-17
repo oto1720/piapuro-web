@@ -23,6 +23,9 @@ export function convertDriveLinkToDirect(url: string): string {
 // 作品カテゴリーの定義
 export type WorkCategory = 'モバイルアプリ' | 'Webアプリ' | 'ゲーム' | 'イラスト' | '他';
 
+// 活動カテゴリーの定義
+export type ActivityCategory = 'モクモク会' | 'ハッカソン' | '展示会' | '懇親会' | 'イベント';
+
 export interface Work {
   id: number;
   title: string;
@@ -39,7 +42,7 @@ export interface Activity {
   id: number;
   year: string;
   title: string;
-  category: string;
+  category: ActivityCategory | string; // string も許可（既存データとの互換性のため）
   description: string;
   participants: number;
   active: string;
@@ -122,39 +125,39 @@ const fallbackActivities: Activity[] = [
   {
     id: 1,
     year: "2024",
-    title: "冬のイラスト展開催",
-    category: "イベント",
-    description: "メンバーが制作したイラスト作品の展示会を開催しました。今回は「冬」をテーマに、15点の作品を展示。多くの来場者に恵まれ、作品に対する感想やアドバイスをいただくことができました。",
-    participants: 20,
+    title: "冬の作品展示会",
+    category: "展示会",
+    description: "メンバーが制作した作品の展示会を開催しました。モバイルアプリ、Webアプリ、ゲームなど多様なジャンルの作品を展示。多くの来場者に恵まれ、作品に対する感想やアドバイスをいただくことができました。",
+    participants: 35,
     active: "https://example.com/activities/1",
     image: ""
   },
   {
     id: 2,
     year: "2024",
-    title: "新メンバー歓迎会",
-    category: "交流",
-    description: "12月に新しく加わった5名のメンバーを迎えて歓迎会を開催しました。自己紹介タイムでは、それぞれの創作への想いを聞かせてもらい、これからの活動がより一層楽しみになりました。",
-    participants: 25,
+    title: "新メンバー歓迎懇親会",
+    category: "懇親会",
+    description: "12月に新しく加わった8名のメンバーを迎えて懇親会を開催しました。自己紹介タイムでは、それぞれの技術スタックや興味のあるプロジェクトについて話し合い、これからの活動がより一層楽しみになりました。",
+    participants: 28,
     active: "https://example.com/activities/2",
     image: ""
   },
   {
     id: 3,
     year: "2024",
-    title: "デジタルアート勉強会",
-    category: "勉強会",
-    description: "デジタルペインティングの基礎から応用まで、プロのイラストレーターの方を講師にお招きして勉強会を開催しました。実際に手を動かしながら学ぶことで、多くのメンバーが新しい技術を身につけることができました。",
-    participants: 18,
+    title: "週末もくもく会",
+    category: "モクモク会",
+    description: "各自が取り組んでいるプロジェクトを持ち寄って作業するもくもく会を開催しました。作業の合間に技術的な相談をしたり、進捗を共有したりと、集中しながらも楽しい雰囲気で開発を進めることができました。",
+    participants: 15,
     active: "https://example.com/activities/3",
     image: ""
   },
   {
     id: 4,
     year: "2024",
-    title: "ハロウィン作品コンテスト",
-    category: "コンテスト",
-    description: "ハロウィンをテーマにした作品コンテストを開催しました。イラスト、音楽、小説の3部門で計22作品の応募があり、どれも力作揃いでした。投票の結果、各部門の優秀作品を決定しました。",
+    title: "秋のハッカソン大会",
+    category: "ハッカソン",
+    description: "48時間でアプリを開発するハッカソンを開催しました。5チームが参加し、テーマ「地域課題解決」に沿った様々なアプリが生まれました。どのチームも完成度が高く、審査員も選考に悩むほどでした。",
     participants: 22,
     active: "https://example.com/activities/4",
     image: ""
@@ -162,20 +165,20 @@ const fallbackActivities: Activity[] = [
   {
     id: 5,
     year: "2024",
-    title: "音楽制作ワークショップ",
-    category: "勉強会",
-    description: "DTMソフトを使った音楽制作のワークショップを開催しました。基本的な楽曲制作から、エフェクトの使い方まで幅広くカバー。参加者全員が短い楽曲を完成させることができました。",
-    participants: 12,
+    title: "学園祭出展イベント",
+    category: "イベント",
+    description: "学園祭にてサークル展示ブースを出展しました。メンバーの作品デモや体験会を実施し、多くの来場者に楽しんでいただきました。新規メンバーの獲得にもつながる良い機会となりました。",
+    participants: 42,
     active: "https://example.com/activities/5",
     image: ""
   },
   {
     id: 6,
     year: "2024",
-    title: "秋の作品発表会",
-    category: "イベント",
-    description: "夏の間に制作した作品の発表会を開催しました。イラスト、音楽、小説、写真など多様なジャンルの作品が集まり、お互いの創作活動を讃え合う素晴らしい時間となりました。",
-    participants: 28,
+    title: "夏季集中もくもく会",
+    category: "モクモク会",
+    description: "夏休みを利用した3日間の集中もくもく会を開催しました。各自が夏休みの目標として掲げたプロジェクトに取り組み、最終日には成果発表会を実施。充実した3日間となりました。",
+    participants: 18,
     active: "https://example.com/activities/6",
     image: ""
   }
