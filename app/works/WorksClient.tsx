@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Work } from '@/lib/api';
 
-const categories = ["すべて", "イラスト", "音楽", "小説", "写真"];
+const categories = ["すべて", "モバイルアプリ", "Webアプリ", "ゲーム", "イラスト", "他"];
 
 interface WorksClientProps {
   initialWorks: Work[];
@@ -120,10 +120,11 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                   <div className="p-8">
                     <div className="mb-4 flex items-center gap-2 flex-wrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        work.category === 'イラスト' ? 'bg-blue-50 text-blue-700' :
-                        work.category === '音楽' ? 'bg-green-50 text-green-700' :
-                        work.category === '小説' ? 'bg-purple-50 text-purple-700' :
-                        work.category === '写真' ? 'bg-orange-50 text-orange-700' :
+                        work.category === 'モバイルアプリ' ? 'bg-blue-50 text-blue-700' :
+                        work.category === 'Webアプリ' ? 'bg-green-50 text-green-700' :
+                        work.category === 'ゲーム' ? 'bg-purple-50 text-purple-700' :
+                        work.category === 'イラスト' ? 'bg-pink-50 text-pink-700' :
+                        work.category === '他' ? 'bg-orange-50 text-orange-700' :
                         'bg-gray-50 text-gray-700'
                       }`}>
                         {work.category}

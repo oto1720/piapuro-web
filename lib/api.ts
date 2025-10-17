@@ -20,11 +20,14 @@ export function convertDriveLinkToDirect(url: string): string {
   return url;
 }
 
+// 作品カテゴリーの定義
+export type WorkCategory = 'モバイルアプリ' | 'Webアプリ' | 'ゲーム' | 'イラスト' | '他';
+
 export interface Work {
   id: number;
   title: string;
   artist: string;
-  category: string;
+  category: WorkCategory | string; // string も許可（既存データとの互換性のため）
   year: string;
   description: string;
   technology: string;
@@ -49,67 +52,67 @@ const GAS_API_URL = process.env.NEXT_PUBLIC_GAS_API_URL;
 const fallbackWorks: Work[] = [
   {
     id: 1,
-    title: "夕日の風景",
+    title: "タスク管理アプリ",
     artist: "田中 美咲",
-    category: "イラスト",
+    category: "モバイルアプリ",
     year: "2024",
-    description: "故郷の夕日を描いた水彩画です。温かみのある色彩で表現しました。",
-    technology: "水彩画",
+    description: "直感的なUIで日々のタスクを管理できるモバイルアプリです。ReactNativeで開発しました。",
+    technology: "React Native, TypeScript",
     works: "https://example.com/works/1",
     image: ""
   },
   {
     id: 2,
-    title: "春のメロディー",
+    title: "ポートフォリオサイト",
     artist: "佐藤 健太",
-    category: "音楽",
+    category: "Webアプリ",
     year: "2024",
-    description: "桜をテーマにしたピアノ曲です。穏やかな春の午後をイメージして作曲しました。",
-    technology: "ピアノ作曲",
+    description: "クリエイター向けのポートフォリオサイト。Next.jsとTailwind CSSで構築しました。",
+    technology: "Next.js, Tailwind CSS",
     works: "https://example.com/works/2",
     image: ""
   },
   {
     id: 3,
-    title: "星空の物語",
+    title: "パズルゲーム",
     artist: "山田 花子",
-    category: "小説",
+    category: "ゲーム",
     year: "2023",
-    description: "天体観測をする少女の成長を描いた短編小説です。夢と現実の境界を探ります。",
-    technology: "文章創作",
+    description: "脳トレに最適なパズルゲーム。Unityで制作し、スマートフォンとPCの両方で遊べます。",
+    technology: "Unity, C#",
     works: "https://example.com/works/3",
     image: ""
   },
   {
     id: 4,
-    title: "都市の記憶",
+    title: "都市の風景",
     artist: "鈴木 太郎",
-    category: "写真",
+    category: "イラスト",
     year: "2024",
-    description: "変わりゆく街並みを記録したフォトエッセイ。時間の流れを写真で表現しています。",
-    technology: "デジタル写真",
+    description: "デジタルペインティングで描いた都市風景。夕暮れ時の街並みを表現しました。",
+    technology: "Procreate, Adobe Photoshop",
     works: "https://example.com/works/4",
     image: ""
   },
   {
     id: 5,
-    title: "未来への扉",
+    title: "データ分析ツール",
     artist: "高橋 由美",
-    category: "イラスト",
+    category: "Webアプリ",
     year: "2024",
-    description: "デジタルペインティングで描いたSF作品。希望に満ちた未来を表現しました。",
-    technology: "デジタルペインティング",
+    description: "ビジネスデータを可視化するWebアプリケーション。グラフやチャートで分かりやすく表示します。",
+    technology: "React, D3.js, Python",
     works: "https://example.com/works/5",
     image: ""
   },
   {
     id: 6,
-    title: "雨音のワルツ",
+    title: "音楽プレイヤー",
     artist: "伊藤 誠",
-    category: "音楽",
+    category: "他",
     year: "2023",
-    description: "雨の日の静寂をテーマにした楽曲。ピアノとバイオリンの美しい調和をお楽しみください。",
-    technology: "DTM・編曲",
+    description: "シンプルで使いやすい音楽プレイヤーアプリ。プレイリスト機能やイコライザーを搭載しています。",
+    technology: "Electron, Node.js",
     works: "https://example.com/works/6",
     image: ""
   }
