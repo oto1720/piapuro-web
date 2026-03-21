@@ -166,7 +166,7 @@ export default function About() {
               },
               {
                 title: "活動費",
-                value: "今の所はありません"
+                value: "現在なし"
               },
               {
                 title: "メンバー数",
