@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'サークルについて - ピアプロサークル',
+  title: 'サークルについて - 福大ピアプロ',
   description: '福大ピアプロの歴史、理念、活動内容について詳しくご紹介します。',
 };
 

@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'メンバー募集 - ピアプロサークル',
-  description: 'ピアプロサークルでは新しいメンバーを募集しています。創作活動に興味のある方はお気軽にお問い合わせください。',
+  title: 'メンバー募集 - 福大ピアプロ',
+  description: '福大ピアプロでは新しいメンバーを募集しています。創作活動に興味のある方はお気軽にお問い合わせください。',
 };
 
 const benefits = [
