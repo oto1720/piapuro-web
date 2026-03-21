@@ -158,7 +158,7 @@ export default function About() {
             {[
               {
                 title: "活動場所",
-                value: "福岡大学\n14号館 3階s"
+                value: "福岡大学\n14号館 3階"
               },
               {
                 title: "活動時間",
@@ -166,7 +166,7 @@ export default function About() {
               },
               {
                 title: "活動費",
-                value: "今の所はないです"
+                value: "今の所はありません"
               },
               {
                 title: "メンバー数",
