@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ピアプロサークル - 創作活動サークル",
+  title: "福大ピアプロ",
   description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
 };
 
