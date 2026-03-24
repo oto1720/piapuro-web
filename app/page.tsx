@@ -25,7 +25,7 @@ export default async function Home() {
         <div className="absolute inset-0">
           <Image
             src="/piapuro.jpg"
-            alt="福岡大学プログラミングサークル"
+            alt=""
             fill
             className="object-cover opacity-80"
             priority
