@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'サークルについて - ピアプロサークル',
+  title: 'サークルについて - 福大ピアプロ',
   description: '福大ピアプロの歴史、理念、活動内容について詳しくご紹介します。',
 };
 
@@ -158,7 +158,7 @@ export default function About() {
             {[
               {
                 title: "活動場所",
-                value: "福岡大学\n14号館 3階s"
+                value: "福岡大学\n14号館 3階"
               },
               {
                 title: "活動時間",

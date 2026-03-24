@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'メンバー募集 - ピアプロサークル',
-  description: 'ピアプロサークルでは新しいメンバーを募集しています。創作活動に興味のある方はお気軽にお問い合わせください。',
+  title: 'メンバー募集 - 福大ピアプロ',
+  description: '福大ピアプロでは新しいメンバーを募集しています。創作活動に興味のある方はお気軽にお問い合わせください。',
 };
 
 const benefits = [
@@ -181,7 +181,7 @@ export default function Recruit() {
               },
               {
                 question: "どんなジャンルの創作活動を行っていますか？",
-                answer: "モバイルアプリ開発やweb開発、ゲーム開発をしている人が多いがジャンルは問いません。"
+                answer: "モバイルアプリ開発やweb開発、ゲーム開発をしている人が多いですがジャンルは問いません。"
               }
             ].map((faq, index) => (
               <div key={index} className="bg-white border border-gray-100 rounded-3xl p-8">

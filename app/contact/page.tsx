@@ -10,8 +10,8 @@ const contactMethods = [
     ),
     title: "メール",
     description: "お気軽にメールでお問い合わせください",
-    contact: "info@piapuro-circle.com",
-    link: "mailto:info@piapuro-circle.com"
+    contact: "piapuro2024@gmail.com",
+    link: "mailto:piapuro2024@gmail.com"
   },
   {
     icon: (
@@ -22,7 +22,7 @@ const contactMethods = [
     ),
     title: "活動場所",
     description: "見学も大歓迎です",
-    contact: "福岡大学 14号餓 3階",
+    contact: "福岡大学 14号館 3階",
     link: null
   },
   {
@@ -235,7 +235,7 @@ export default function Contact() {
               },
               {
                 question: "入会に費用はかかりますか？",
-                answer: "今の所はないです。"
+                answer: "今の所はかかりません。"
               },
               {
                 question: "どのくらいの経験が必要ですか？",

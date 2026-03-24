@@ -28,7 +28,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">お問い合わせ</h4>
             <div className="text-sm text-gray-300 space-y-2">
-              <p>Email: info@piapuro-circle.com</p>
+              <p>Email: piapuro2024@gmail.com</p>
               <p>活動場所: 福岡大学</p>
             </div>
           </div>
