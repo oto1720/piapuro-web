@@ -1,7 +1,35 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { getActivitiesFromGAS, getWorksFromGAS } from '@/lib/api';
 
-export default function Home() {
+const activityGradientClasses = [
+  'from-blue-500 to-blue-600',
+  'from-green-500 to-green-600',
+  'from-purple-500 to-purple-600',
+];
+
+const workGradientClasses = [
+  'from-blue-400 to-purple-500',
+  'from-green-400 to-blue-500',
+  'from-purple-400 to-pink-500',
+];
+
+function getWorkCategoryColorClass(category: string) {
+  if (category === 'モバイルアプリ') return 'text-blue-600';
+  if (category === 'Webアプリ') return 'text-green-600';
+  if (category === 'ゲーム') return 'text-purple-600';
+  if (category === 'イラスト') return 'text-pink-600';
+  return 'text-gray-600';
+}
+
+export default async function Home() {
+  const [works, activities] = await Promise.all([
+    getWorksFromGAS(),
+    getActivitiesFromGAS(),
+  ]);
+  const featuredWorks = works.slice(0, 3);
+  const latestActivities = activities.slice(0, 3);
+
   return (
     <div className="min-h-screen bg-white">
       {/* ヒーロー画像セクション */}
@@ -124,52 +152,30 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <article className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-48 bg-gradient-to-br from-blue-500 to-blue-600"></div>
-                <div className="p-8">
-                  <div className="text-sm text-gray-500 font-light mb-3">2024.12.20</div>
-                  <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                    仮
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed">
-                    仮
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <article className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-48 bg-gradient-to-br from-green-500 to-green-600"></div>
-                <div className="p-8">
-                  <div className="text-sm text-gray-500 font-light mb-3">2024.12.15</div>
-                  <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-green-600 transition-colors">
-                  仮
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed">
-                  仮
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <article className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-48 bg-gradient-to-br from-purple-500 to-purple-600"></div>
-                <div className="p-8">
-                  <div className="text-sm text-gray-500 font-light mb-3">2024.12.01</div>
-                  <h3 className="text-xl font-medium text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">
-                  仮
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed">
-                  仮
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
+          {latestActivities.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {latestActivities.map((activity, index) => (
+                <article key={`${activity.id}-${index}`} className="group cursor-pointer">
+                  <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
+                    <div className={`h-48 bg-gradient-to-br ${activityGradientClasses[index % activityGradientClasses.length]}`}></div>
+                    <div className="p-8">
+                      <div className="text-sm text-gray-500 font-light mb-3">{activity.year}</div>
+                      <h3 className="text-xl font-medium text-gray-900 mb-4 transition-colors group-hover:text-gray-700">
+                        {activity.title}
+                      </h3>
+                      <p className="text-gray-600 font-light leading-relaxed line-clamp-3">
+                        {activity.description}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-gray-500 font-light">最新情報はまだありません。</p>
+            </div>
+          )}
 
           <div className="text-center mt-16">
             <Link
@@ -194,55 +200,31 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-56 bg-gradient-to-br from-blue-400 to-purple-500"></div>
-                <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
-                  <p className="text-gray-600 font-light mb-4">
-                  仮
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-blue-600 font-medium">仮</span>
-                    <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
+          {featuredWorks.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredWorks.map((work, index) => (
+                <div key={`${work.id}-${index}`} className="group cursor-pointer">
+                  <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
+                    <div className={`h-56 bg-gradient-to-br ${workGradientClasses[index % workGradientClasses.length]}`}></div>
+                    <div className="p-8">
+                      <h3 className="text-xl font-medium text-gray-900 mb-3">{work.title}</h3>
+                      <p className="text-gray-600 font-light mb-4 line-clamp-3">
+                        {work.description}
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <span className={`text-sm font-medium ${getWorkCategoryColorClass(work.category)}`}>{work.category}</span>
+                        <span className="text-gray-400 transition-colors group-hover:text-gray-600">→</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-
-            <div className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-56 bg-gradient-to-br from-green-400 to-blue-500"></div>
-                <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
-                  <p className="text-gray-600 font-light mb-4">
-                  仮
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-green-600 font-medium">仮</span>
-                    <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
-                  </div>
-                </div>
-              </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-gray-500 font-light">表示できる作品がまだありません。</p>
             </div>
-
-            <div className="group cursor-pointer">
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                <div className="h-56 bg-gradient-to-br from-purple-400 to-pink-500"></div>
-                <div className="p-8">
-                  <h3 className="text-xl font-medium text-gray-900 mb-3">仮</h3>
-                  <p className="text-gray-600 font-light mb-4">
-                  仮
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-purple-600 font-medium">仮</span>
-                    <span className="text-gray-400 group-hover:text-gray-600 transition-colors">→</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
 
           <div className="text-center mt-16">
             <Link
