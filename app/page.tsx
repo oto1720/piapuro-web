@@ -2,18 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getActivitiesFromGAS, getWorksFromGAS } from '@/lib/api';
 
-const activityGradientClasses = [
-  'from-blue-500 to-blue-600',
-  'from-green-500 to-green-600',
-  'from-purple-500 to-purple-600',
-];
-
-const workGradientClasses = [
-  'from-blue-400 to-purple-500',
-  'from-green-400 to-blue-500',
-  'from-purple-400 to-pink-500',
-];
-
 function getWorkCategoryColorClass(category: string) {
   if (category === 'モバイルアプリ') return 'text-blue-600';
   if (category === 'Webアプリ') return 'text-green-600';
@@ -154,10 +142,26 @@ export default async function Home() {
 
           {latestActivities.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {latestActivities.map((activity, index) => (
-                <article key={`${activity.id}-${index}`} className="group cursor-pointer">
+              {latestActivities.map((activity) => (
+                <article key={activity.id} className="group cursor-pointer">
                   <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                    <div className={`h-48 bg-gradient-to-br ${activityGradientClasses[index % activityGradientClasses.length]}`}></div>
+                    <div className="h-48 relative overflow-hidden bg-gray-100">
+                      {activity.image ? (
+                        <Image
+                          src={activity.image}
+                          alt={activity.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                          <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                     <div className="p-8">
                       <div className="text-sm text-gray-500 font-light mb-3">{activity.year}</div>
                       <h3 className="text-xl font-medium text-gray-900 mb-4 transition-colors group-hover:text-gray-700">
@@ -202,10 +206,26 @@ export default async function Home() {
 
           {featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredWorks.map((work, index) => (
-                <div key={`${work.id}-${index}`} className="group cursor-pointer">
+              {featuredWorks.map((work) => (
+                <div key={work.id} className="group cursor-pointer">
                   <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                    <div className={`h-56 bg-gradient-to-br ${workGradientClasses[index % workGradientClasses.length]}`}></div>
+                    <div className="h-56 relative overflow-hidden bg-gray-100">
+                      {work.image ? (
+                        <Image
+                          src={work.image}
+                          alt={work.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                          <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                     <div className="p-8">
                       <h3 className="text-xl font-medium text-gray-900 mb-3">{work.title}</h3>
                       <p className="text-gray-600 font-light mb-4 line-clamp-3">
