@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Work } from '@/lib/api';
@@ -12,17 +12,25 @@ interface WorksClientProps {
 
 export default function WorksClient({ initialWorks }: WorksClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
-  const [selectedWorkId, setSelectedWorkId] = useState<number | null>(null);
+  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
 
   const filteredWorks = selectedCategory === "すべて"
     ? initialWorks
     : initialWorks.filter(work => work.category === selectedCategory);
 
+  useEffect(() => {
+    if (!selectedWork) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedWork(null);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [selectedWork]);
+
   return (
-    <div
-      className="min-h-screen bg-white"
-      onClick={() => selectedWorkId && setSelectedWorkId(null)}
-    >
+    <div className="min-h-screen bg-white">
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -63,20 +71,12 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
             {filteredWorks.map((work) => (
               <div
                 key={work.id}
-                className={`transition-all duration-300 ${
-                  selectedWorkId === work.id ? 'relative z-50' : 'relative z-0'
-                }`}
+                className="transition-all duration-300"
               >
-                <div
-                  className={`bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer ${
-                    selectedWorkId === work.id
-                      ? 'shadow-2xl shadow-black/20 scale-105'
-                      : 'hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedWorkId(selectedWorkId === work.id ? null : work.id);
-                  }}
+                <button
+                  type="button"
+                  onClick={() => setSelectedWork(work)}
+                  className="w-full text-left bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2"
                 >
                   {/* 画像エリア */}
                   <div className="h-64 relative overflow-hidden bg-gray-100">
@@ -100,21 +100,6 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                         {work.year}
                       </span>
                     </div>
-
-                    {/* 詳細ボタン（クリック時に表示） */}
-                    {selectedWorkId === work.id && work.works && (
-                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center animate-fade-in">
-                        <a
-                          href={work.works}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
-                        >
-                          詳細を見る
-                        </a>
-                      </div>
-                    )}
                   </div>
 
                   <div className="p-8">
@@ -148,7 +133,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                       {work.description}
                     </p>
                   </div>
-                </div>
+                </button>
               </div>
             ))}
           </div>
@@ -162,6 +147,86 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
           )}
         </div>
       </section>
+
+      {selectedWork && (
+        <div
+          className="fixed inset-0 z-50 bg-black/55 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          onClick={() => setSelectedWork(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="作品詳細"
+        >
+          <div
+            className="w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-white border border-gray-100 rounded-3xl shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b border-gray-100 p-4 md:p-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setSelectedWork(null)}
+                className="w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                aria-label="閉じる"
+              >
+                ×
+              </button>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative min-h-[280px] lg:min-h-[520px] bg-gray-100">
+                {selectedWork.image ? (
+                  <Image
+                    src={selectedWork.image}
+                    alt={selectedWork.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                    <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div className="p-8 md:p-12">
+                <div className="flex items-center gap-3 flex-wrap mb-5">
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                    {selectedWork.category}
+                  </span>
+                  <span className="text-sm text-gray-500">{selectedWork.year}</span>
+                </div>
+                <h3 className="text-3xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+                  {selectedWork.title}
+                </h3>
+                <p className="text-base md:text-lg text-gray-600 font-light mb-3">
+                  作者: {selectedWork.artist}
+                </p>
+                {selectedWork.technology && (
+                  <p className="text-base md:text-lg text-gray-600 font-light mb-8">
+                    技術: {selectedWork.technology}
+                  </p>
+                )}
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                  {selectedWork.description}
+                </p>
+                {selectedWork.works && (
+                  <div className="mt-10">
+                    <a
+                      href={selectedWork.works}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-gray-900 text-white px-8 py-3 rounded-full text-base font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+                    >
+                      作品リンクを見る
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CTAセクション */}
       <section className="py-20 bg-gray-50/50">
