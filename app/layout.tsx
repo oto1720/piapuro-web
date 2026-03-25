@@ -14,9 +14,51 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+function parseSiteUrl(value: string | undefined): URL | undefined {
+  if (!value) return undefined;
+
+  try {
+    return new URL(value);
+  } catch {
+    return undefined;
+  }
+}
+
+const siteUrl = parseSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+
+const ogImageUrl = siteUrl
+  ? new URL("/opengraph-image", siteUrl).toString()
+  : "/opengraph-image";
+const twitterImageUrl = siteUrl
+  ? new URL("/twitter-image", siteUrl).toString()
+  : "/twitter-image";
+
 export const metadata: Metadata = {
   title: "福大ピアプロ",
   description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
+  metadataBase: siteUrl,
+  openGraph: {
+    title: "福大ピアプロ",
+    description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
+    url: siteUrl?.toString() ?? "/",
+    siteName: "福大ピアプロ",
+    locale: "ja_JP",
+    type: "website",
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "福大ピアプロ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "福大ピアプロ",
+    description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
+    images: [twitterImageUrl],
+  },
 };
 
 export default function RootLayout({
