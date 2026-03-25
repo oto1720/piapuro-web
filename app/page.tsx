@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getActivitiesFromGAS, getWorksFromGAS } from '@/lib/api';
-import HomeHighlightsModal from './components/HomeHighlightsModal';
+import { HomeFeaturedSections } from '@/components/HomeFeaturedSections';
 
 export default async function Home() {
   const [works, activities] = await Promise.all([
@@ -121,7 +121,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <HomeHighlightsModal latestActivities={latestActivities} featuredWorks={featuredWorks} />
+      <HomeFeaturedSections featuredWorks={featuredWorks} latestActivities={latestActivities} />
     </div>
   );
 }
