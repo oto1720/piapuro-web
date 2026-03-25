@@ -3,8 +3,8 @@ import { getActivitiesFromGAS } from '@/lib/api';
 import ActivitiesClient from './ActivitiesClient';
 
 export const metadata: Metadata = {
-  title: '活動記録 - ピアプロサークル',
-  description: 'ピアプロサークルの活動記録や過去のイベント情報をご紹介します。',
+  title: '活動記録 - 福大ピアプロ',
+  description: '福大ピアプロの活動記録や過去のイベント情報をご紹介します。',
 };
 
 export default async function Activities() {
