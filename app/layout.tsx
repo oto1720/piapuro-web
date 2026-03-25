@@ -14,9 +14,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-  : undefined;
+function parseSiteUrl(value: string | undefined): URL | undefined {
+  if (!value) return undefined;
+
+  try {
+    return new URL(value);
+  } catch {
+    return undefined;
+  }
+}
+
+const siteUrl = parseSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
 
 const ogImageUrl = siteUrl
   ? new URL("/opengraph-image", siteUrl).toString()
