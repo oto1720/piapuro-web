@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Activity } from '@/lib/api';
+import ActivityDetailModal from '@/components/ActivityDetailModal';
 
 const categories = ["すべて", "モクモク会", "ハッカソン", "展示会", "懇親会", "イベント"];
 
@@ -11,17 +12,14 @@ interface ActivitiesClientProps {
 
 export default function ActivitiesClient({ activities }: ActivitiesClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
-  const [selectedActivityId, setSelectedActivityId] = useState<number | null>(null);
+  const [detailActivity, setDetailActivity] = useState<Activity | null>(null);
 
   const filteredActivities = selectedCategory === "すべて"
     ? activities
     : activities.filter(activity => activity.category === selectedCategory);
 
   return (
-    <div
-      className="min-h-screen bg-white"
-      onClick={() => selectedActivityId && setSelectedActivityId(null)}
-    >
+    <div className="min-h-screen bg-white">
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -60,28 +58,22 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-16">
             {filteredActivities.map((activity) => (
-              <div
-                key={activity.id}
-                className={`transition-all duration-300 ${
-                  selectedActivityId === activity.id ? 'relative z-50' : 'relative z-0'
-                }`}
-              >
+              <div key={activity.id} className="relative z-0 transition-all duration-300">
                 <div
-                  className={`flex flex-col lg:flex-row items-start gap-12 transition-all duration-300 cursor-pointer ${
-                    selectedActivityId === activity.id ? 'scale-105' : ''
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedActivityId(selectedActivityId === activity.id ? null : activity.id);
+                  className="flex flex-col lg:flex-row items-start gap-12 transition-all duration-300 cursor-pointer hover:opacity-95"
+                  onClick={() => setDetailActivity(activity)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setDetailActivity(activity);
+                    }
                   }}
                 >
                   {/* 画像エリア */}
-                  <div className="flex-shrink-0 lg:w-1/3 w-full">
-                    <div className={`h-64 relative overflow-hidden bg-gray-100 rounded-3xl transition-all duration-300 ${
-                      selectedActivityId === activity.id
-                        ? 'shadow-2xl shadow-black/20 scale-110'
-                        : 'hover:shadow-xl hover:scale-105'
-                    }`}>
+                  <div className="flex-shrink-0 lg:w-1/3 w-full pointer-events-none">
+                    <div className="h-64 relative overflow-hidden bg-gray-100 rounded-3xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
                       {activity.image ? (
                         <Image
                           src={activity.image}
@@ -95,21 +87,6 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
                           <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
-                        </div>
-                      )}
-
-                      {/* 詳細ボタン（クリック時に表示） */}
-                      {selectedActivityId === activity.id && activity.active && (
-                        <div className="absolute inset-0 bg-black/60 flex items-center justify-center animate-fade-in">
-                          <a
-                            href={activity.active}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
-                          >
-                            詳細を見る
-                          </a>
                         </div>
                       )}
                     </div>
@@ -252,6 +229,8 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
           </div>
         </div>
       </section>
+
+      <ActivityDetailModal activity={detailActivity} onClose={() => setDetailActivity(null)} />
     </div>
   );
 }

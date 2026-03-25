@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Work } from '@/lib/api';
+import WorkDetailModal from '@/components/WorkDetailModal';
 
 const categories = ["すべて", "モバイルアプリ", "Webアプリ", "ゲーム", "イラスト", "他"];
 
@@ -12,17 +13,14 @@ interface WorksClientProps {
 
 export default function WorksClient({ initialWorks }: WorksClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("すべて");
-  const [selectedWorkId, setSelectedWorkId] = useState<number | null>(null);
+  const [detailWork, setDetailWork] = useState<Work | null>(null);
 
   const filteredWorks = selectedCategory === "すべて"
     ? initialWorks
     : initialWorks.filter(work => work.category === selectedCategory);
 
   return (
-    <div
-      className="min-h-screen bg-white"
-      onClick={() => selectedWorkId && setSelectedWorkId(null)}
-    >
+    <div className="min-h-screen bg-white">
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -61,25 +59,20 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredWorks.map((work) => (
-              <div
-                key={work.id}
-                className={`transition-all duration-300 ${
-                  selectedWorkId === work.id ? 'relative z-50' : 'relative z-0'
-                }`}
-              >
+              <div key={work.id} className="relative z-0 transition-all duration-300">
                 <div
-                  className={`bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer ${
-                    selectedWorkId === work.id
-                      ? 'shadow-2xl shadow-black/20 scale-105'
-                      : 'hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedWorkId(selectedWorkId === work.id ? null : work.id);
+                  className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2"
+                  onClick={() => setDetailWork(work)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setDetailWork(work);
+                    }
                   }}
                 >
-                  {/* 画像エリア */}
-                  <div className="h-64 relative overflow-hidden bg-gray-100">
+                  <div className="h-64 relative overflow-hidden bg-gray-100 pointer-events-none">
                     {work.image ? (
                       <Image
                         src={work.image}
@@ -100,21 +93,6 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                         {work.year}
                       </span>
                     </div>
-
-                    {/* 詳細ボタン（クリック時に表示） */}
-                    {selectedWorkId === work.id && work.works && (
-                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center animate-fade-in">
-                        <a
-                          href={work.works}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="bg-white text-gray-900 px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
-                        >
-                          詳細を見る
-                        </a>
-                      </div>
-                    )}
                   </div>
 
                   <div className="p-8">
@@ -136,7 +114,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                       )}
                     </div>
 
-                    <h3 className="text-2xl font-medium text-gray-900 mb-3 group-hover:text-gray-600 transition-colors">
+                    <h3 className="text-2xl font-medium text-gray-900 mb-3">
                       {work.title}
                     </h3>
 
@@ -191,6 +169,8 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
           </div>
         </div>
       </section>
+
+      <WorkDetailModal work={detailWork} onClose={() => setDetailWork(null)} />
     </div>
   );
 }

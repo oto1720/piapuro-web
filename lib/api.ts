@@ -49,6 +49,26 @@ export interface Activity {
   image: string;
 }
 
+/** 空文字・空白のみ・未登録はボタンを出さない（スプレッドシート由来の " " 等も除外） */
+export function hasExternalLink(value: unknown): boolean {
+  if (value == null) return false;
+  const s = typeof value === 'string' ? value : String(value);
+  return s.trim().length > 0;
+}
+
+/** GAS や JSON 由来で id が文字列になる場合があるため統一する */
+function normalizeWork(raw: Work): Work {
+  return { ...raw, id: Number(raw.id) };
+}
+
+function normalizeActivity(raw: Activity): Activity {
+  return {
+    ...raw,
+    id: Number(raw.id),
+    participants: Number(raw.participants),
+  };
+}
+
 const GAS_API_URL = process.env.NEXT_PUBLIC_GAS_API_URL;
 
 // フォールバックデータ
@@ -188,7 +208,7 @@ export async function getWorksFromGAS(): Promise<Work[]> {
   // 環境変数が設定されていない場合はフォールバックデータを返す
   if (!GAS_API_URL) {
     console.warn('GAS_API_URL is not set. Using fallback data.');
-    return fallbackWorks;
+    return fallbackWorks.map(normalizeWork);
   }
 
   try {
@@ -205,14 +225,14 @@ export async function getWorksFromGAS(): Promise<Work[]> {
 
     // GASのレスポンス形式: {success: true, data: [...], count: N}
     if (result.success && result.data && result.data.length > 0) {
-      return result.data;
+      return result.data.map((row: Work) => normalizeWork(row));
     } else {
       console.warn('No works data from GAS. Using fallback data.');
-      return fallbackWorks;
+      return fallbackWorks.map(normalizeWork);
     }
   } catch (error) {
     console.error('Error fetching works:', error);
-    return fallbackWorks;
+    return fallbackWorks.map(normalizeWork);
   }
 }
 
@@ -220,7 +240,7 @@ export async function getActivitiesFromGAS(): Promise<Activity[]> {
   // 環境変数が設定されていない場合はフォールバックデータを返す
   if (!GAS_API_URL) {
     console.warn('GAS_API_URL is not set. Using fallback data.');
-    return fallbackActivities;
+    return fallbackActivities.map(normalizeActivity);
   }
 
   try {
@@ -237,13 +257,25 @@ export async function getActivitiesFromGAS(): Promise<Activity[]> {
 
     // GASのレスポンス形式: {success: true, data: [...], count: N}
     if (result.success && result.data && result.data.length > 0) {
-      return result.data;
+      return result.data.map((row: Activity) => normalizeActivity(row));
     } else {
       console.warn('No activities data from GAS. Using fallback data.');
-      return fallbackActivities;
+      return fallbackActivities.map(normalizeActivity);
     }
   } catch (error) {
     console.error('Error fetching activities:', error);
-    return fallbackActivities;
+    return fallbackActivities.map(normalizeActivity);
   }
+}
+
+export async function getWorkById(id: number): Promise<Work | null> {
+  if (!Number.isFinite(id)) return null;
+  const works = await getWorksFromGAS();
+  return works.find((w) => Number(w.id) === id) ?? null;
+}
+
+export async function getActivityById(id: number): Promise<Activity | null> {
+  if (!Number.isFinite(id)) return null;
+  const activities = await getActivitiesFromGAS();
+  return activities.find((a) => Number(a.id) === id) ?? null;
 }
