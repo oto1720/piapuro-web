@@ -143,8 +143,8 @@ export default async function Home() {
           {latestActivities.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {latestActivities.map((activity) => (
-                <article key={activity.id} className="group cursor-pointer">
-                  <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
+                <Link key={activity.id} href={`/activities/${activity.id}`} className="group block">
+                  <article className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
                     <div className="h-48 relative overflow-hidden bg-gray-100">
                       {activity.image ? (
                         <Image
@@ -171,8 +171,8 @@ export default async function Home() {
                         {activity.description}
                       </p>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </Link>
               ))}
             </div>
           ) : (
@@ -207,8 +207,8 @@ export default async function Home() {
           {featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredWorks.map((work) => (
-                <div key={work.id} className="group cursor-pointer">
-                  <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
+                <Link key={work.id} href={`/works/${work.id}`} className="group block">
+                  <article className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
                     <div className="h-56 relative overflow-hidden bg-gray-100">
                       {work.image ? (
                         <Image
@@ -236,8 +236,8 @@ export default async function Home() {
                         <span className="text-gray-400 transition-colors group-hover:text-gray-600">→</span>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </article>
+                </Link>
               ))}
             </div>
           ) : (
