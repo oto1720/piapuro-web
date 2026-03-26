@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getActivitiesFromGAS, getWorksFromGAS } from '@/lib/api';
 import { HomeFeaturedSections } from '@/components/HomeFeaturedSections';
+import { getCircleInfo } from '@/lib/data';
 
 export default async function Home() {
   const [works, activities] = await Promise.all([
@@ -13,6 +14,7 @@ export default async function Home() {
 
   const eventsCount = activities.length;
   const worksCount = works.length;
+  const { memberCount, awardsCount } = getCircleInfo();
 
   return (
     <div className="min-h-screen bg-white">
@@ -109,7 +111,7 @@ export default async function Home() {
               <div className="text-gray-600 font-light">イベント参加</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">5</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">{awardsCount}</div>
               <div className="text-gray-600 font-light">受賞歴</div>
             </div>
             <div className="text-center">
@@ -117,7 +119,7 @@ export default async function Home() {
               <div className="text-gray-600 font-light">制作作品数</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">30</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">{memberCount.active}</div>
               <div className="text-gray-600 font-light">メンバー数</div>
             </div>
           </div>
