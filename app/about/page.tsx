@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getCircleInfo } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'サークルについて',
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
 };
 
 export default function About() {
+  const { memberCount, awardsCount } = getCircleInfo();
+  
   return (
     <div className="min-h-screen bg-white">
       {/* ヒーローセクション */}
@@ -154,7 +157,7 @@ export default function About() {
               活動詳細
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {[
               {
                 title: "活動場所",
@@ -170,7 +173,11 @@ export default function About() {
               },
               {
                 title: "メンバー数",
-                value: "現在25名\n(Discordは100名以上)"
+                value: `現在${memberCount.active}名\n(Discordは${memberCount.discord}名以上)`
+              },
+              {
+                title: "受賞歴",
+                value: `${awardsCount}件`
               }
             ].map((item, index) => (
               <div key={index} className="text-center">
