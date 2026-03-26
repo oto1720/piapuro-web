@@ -3,7 +3,7 @@ import { getActivitiesFromGAS } from '@/lib/api';
 import ActivitiesClient from './ActivitiesClient';
 
 export const metadata: Metadata = {
-  title: '活動記録 - 福大ピアプロ',
+  title: '活動記録',
   description: '福大ピアプロの活動記録や過去のイベント情報をご紹介します。',
 };
 

@@ -34,7 +34,10 @@ const twitterImageUrl = siteUrl
   : "/twitter-image";
 
 export const metadata: Metadata = {
-  title: "福大ピアプロ",
+  title: {
+    default: "福大ピアプロ",
+    template: "%s | 福大ピアプロ",
+  },
   description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
   metadataBase: siteUrl,
   openGraph: {
@@ -55,7 +58,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "福大ピアプロ",
+    title: {
+      default: "福大ピアプロ",
+      template: "%s | 福大ピアプロ",
+    },
     description: "創作活動を通じて仲間と共に成長し、素敵な作品を生み出すサークルです。",
     images: [twitterImageUrl],
   },
