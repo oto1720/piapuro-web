@@ -11,6 +11,9 @@ export default async function Home() {
   const featuredWorks = works.slice(0, 3);
   const latestActivities = activities.slice(0, 3);
 
+  const eventsCount = activities.length;
+  const worksCount = works.length;
+
   return (
     <div className="min-h-screen bg-white">
       {/* ヒーロー画像セクション */}
@@ -102,7 +105,7 @@ export default async function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">7+</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">{eventsCount}</div>
               <div className="text-gray-600 font-light">イベント参加</div>
             </div>
             <div className="text-center">
@@ -110,7 +113,7 @@ export default async function Home() {
               <div className="text-gray-600 font-light">受賞歴</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">10+</div>
+              <div className="text-5xl md:text-6xl font-thin text-gray-900 mb-2">{worksCount}</div>
               <div className="text-gray-600 font-light">制作作品数</div>
             </div>
             <div className="text-center">
