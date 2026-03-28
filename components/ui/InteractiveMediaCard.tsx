@@ -27,17 +27,19 @@ export default function InteractiveMediaCard({
   return (
     <button
       type="button"
-      className="group w-full text-left rounded-3xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 cursor-pointer tap-target"
+      className="group relative isolate w-full text-left rounded-3xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] shadow-lg shadow-black/[0.03] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/10 hover:border-[color-mix(in_srgb,var(--accent)_22%,var(--border-subtle))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--accent)_38%,transparent)] cursor-pointer tap-target"
       onClick={onClick}
       aria-label={ariaLabel}
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[color-mix(in_srgb,var(--accent)_78%,transparent)] via-[color-mix(in_srgb,var(--accent)_54%,transparent)] to-[color-mix(in_srgb,var(--accent)_22%,transparent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
       <div className={`${imageHeightClassName} relative overflow-hidden bg-[var(--surface-muted)] pointer-events-none`}>
         {image ? (
           <Image
             src={image}
             alt={imageAlt}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes={imageSizes}
           />
         ) : (
@@ -48,10 +50,15 @@ export default function InteractiveMediaCard({
           </div>
         )}
 
-        {topRightOverlay && <div className="absolute top-6 right-6">{topRightOverlay}</div>}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/18 via-transparent to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+
+        {topRightOverlay && <div className="absolute top-5 right-5">{topRightOverlay}</div>}
       </div>
 
-      <div className={bodyClassName}>{children}</div>
+      <div className={`relative ${bodyClassName}`}>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[color-mix(in_srgb,var(--border-subtle)_74%,transparent)]" />
+        {children}
+      </div>
     </button>
   );
 }

@@ -85,13 +85,21 @@ export default function HomeHighlightsModal({
 
   return (
     <>
-      <section className="py-20">
+      <section className="relative overflow-hidden py-20 md:py-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] blur-3xl" />
+          <div className="absolute top-16 right-0 h-80 w-80 rounded-full bg-[color-mix(in_srgb,var(--surface-hover)_72%,transparent)] blur-3xl" />
+        </div>
+
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Recent Activities</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-5 tracking-tight">
               最新情報
             </h2>
-            <p className="text-lg text-secondary-token font-light">サークルの最新活動</p>
+            <p className="max-w-2xl text-base md:text-lg text-secondary-token font-light leading-relaxed">
+              サークルの空気感が伝わる活動記録を、見やすさを保ったままダイナミックにまとめています。
+            </p>
           </div>
 
           {latestActivities.length > 0 ? (
@@ -103,16 +111,27 @@ export default function HomeHighlightsModal({
                   imageAlt={activity.title}
                   imageSizes="(max-width: 768px) 100vw, 33vw"
                   imageHeightClassName="h-48"
+                  bodyClassName="p-7 md:p-8"
                   onClick={() => setModal({ type: 'activity', item: activity })}
                   ariaLabel={`${activity.title}の詳細を開く`}
+                  topRightOverlay={
+                    <span className="inline-flex items-center rounded-full bg-[color-mix(in_srgb,var(--surface-raised)_82%,transparent)] border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-secondary-token backdrop-blur-sm">
+                      {activity.year}
+                    </span>
+                  }
                 >
-                  <div className="text-sm text-muted-token font-light mb-3">{activity.year}</div>
                   <h3 className="text-xl font-medium text-primary-token mb-4 transition-colors group-hover:text-secondary-token">
                     {activity.title}
                   </h3>
                   <p className="text-secondary-token font-light leading-relaxed line-clamp-3">
                     {activity.description}
                   </p>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-secondary-token">
+                    詳細を見る
+                    <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                      →
+                    </span>
+                  </div>
                 </InteractiveMediaCard>
               ))}
             </div>
@@ -125,21 +144,29 @@ export default function HomeHighlightsModal({
           <div className="text-center mt-16">
             <Link
               href="/activities"
-              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+              className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての活動を見る
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
+      <section className="relative overflow-hidden py-20 md:py-24 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
+        <div className="pointer-events-none absolute inset-0 -z-10 [background-image:linear-gradient(to_right,color-mix(in_srgb,var(--border-subtle)_28%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--border-subtle)_28%,transparent)_1px,transparent_1px)] [background-size:44px_44px] opacity-45" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[color-mix(in_srgb,var(--surface-hover)_55%,transparent)] to-transparent" />
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Featured Works</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-5 tracking-tight">
               作品
             </h2>
-            <p className="text-lg text-secondary-token font-light">メンバーが制作した代表的な作品</p>
+            <p className="max-w-2xl text-base md:text-lg text-secondary-token font-light leading-relaxed">
+              メンバーそれぞれの技術と表現を、ジャンルごとの個性が見える導線で紹介しています。
+            </p>
           </div>
 
           {featuredWorks.length > 0 ? (
@@ -151,14 +178,16 @@ export default function HomeHighlightsModal({
                   imageAlt={work.title}
                   imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   imageHeightClassName="h-56"
+                  bodyClassName="p-7 md:p-8"
                   onClick={() => setModal({ type: 'work', item: work })}
                   ariaLabel={`${work.title}の詳細を開く`}
+                  topRightOverlay={<CategoryBadge category={work.category} kind="work" size="sm" />}
                 >
                   <h3 className="text-xl font-medium text-primary-token mb-3">{work.title}</h3>
                   <p className="text-secondary-token font-light mb-4 line-clamp-3">{work.description}</p>
                   <div className="flex justify-between items-center">
-                    <CategoryBadge category={work.category} kind="work" size="sm" />
-                    <span className={`transition-colors group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
+                    <span className="text-sm text-muted-token">{work.year}</span>
+                    <span className={`text-lg transition-all duration-300 group-hover:translate-x-1 group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
                   </div>
                 </InteractiveMediaCard>
               ))}
@@ -172,9 +201,12 @@ export default function HomeHighlightsModal({
           <div className="text-center mt-16">
             <Link
               href="/works"
-              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+              className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての作品を見る
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </div>
         </div>
@@ -182,7 +214,7 @@ export default function HomeHighlightsModal({
 
       {modal && (
         <div
-          className="fixed inset-0 z-50 bg-black/55 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 bg-[color-mix(in_srgb,var(--hero-base)_58%,black)] backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-fade-in"
           onClick={() => setModal(null)}
           role="dialog"
           aria-modal="true"
@@ -191,14 +223,14 @@ export default function HomeHighlightsModal({
           <div
             ref={dialogRef}
             tabIndex={-1}
-            className="w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl shadow-2xl"
+            className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl shadow-2xl shadow-black/35"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 bg-[color-mix(in_srgb,var(--surface-raised)_90%,transparent)] backdrop-blur-sm border-b border-[var(--border-subtle)] p-4 md:p-6 flex justify-end">
+            <div className="sticky top-0 z-10 bg-[color-mix(in_srgb,var(--surface-raised)_92%,transparent)] backdrop-blur-sm border-b border-[var(--border-subtle)] p-4 md:p-6 flex justify-end">
               <button
                 type="button"
                 onClick={() => setModal(null)}
-                className="tap-target w-11 h-11 rounded-full bg-[var(--surface-muted)] text-secondary-token hover:bg-[var(--surface-hover)] transition-colors"
+                className="tap-target w-11 h-11 rounded-full bg-[var(--surface-muted)] text-secondary-token hover:bg-[var(--surface-hover)] transition-colors text-xl leading-none"
                 aria-label="閉じる"
               >
                 ×
@@ -206,7 +238,8 @@ export default function HomeHighlightsModal({
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="relative min-h-[280px] lg:min-h-[520px] bg-[var(--surface-muted)]">
+              <div className="relative min-h-[280px] lg:min-h-[560px] bg-[var(--surface-muted)]">
+                <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/30 via-transparent to-black/5" />
                 {modal.item.image ? (
                   <Image
                     src={modal.item.image}
@@ -224,7 +257,8 @@ export default function HomeHighlightsModal({
                 )}
               </div>
 
-              <div className="p-8 md:p-12">
+              <div className="relative p-8 md:p-12 lg:p-14">
+                <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-bl-[2.5rem] bg-[color-mix(in_srgb,var(--accent)_12%,transparent)]" />
                 {modal.type === 'activity' ? (
                   <>
                     <div className="flex items-center gap-3 flex-wrap mb-5">
@@ -232,10 +266,10 @@ export default function HomeHighlightsModal({
                       <span className="text-sm text-muted-token">{modal.item.year}</span>
                       <span className="text-sm text-muted-token">参加者 {modal.item.participants}名</span>
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-thin text-primary-token mb-8 tracking-tight">
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-8 tracking-tight leading-tight">
                       {modal.item.title}
                     </h3>
-                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap">
+                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap text-base md:text-lg">
                       {modal.item.description}
                     </p>
                     {modal.item.active && (
@@ -244,9 +278,12 @@ export default function HomeHighlightsModal({
                           href={modal.item.active}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+                          className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
                         >
                           関連リンクを見る
+                          <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                            ↗
+                          </span>
                         </a>
                       </div>
                     )}
@@ -257,7 +294,7 @@ export default function HomeHighlightsModal({
                       <CategoryBadge category={modal.item.category} kind="work" size="md" />
                       <span className="text-sm text-muted-token">{modal.item.year}</span>
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-6 tracking-tight leading-tight">
                       {modal.item.title}
                     </h3>
                     <p className="text-base md:text-lg text-secondary-token font-light mb-3">
@@ -268,7 +305,7 @@ export default function HomeHighlightsModal({
                         技術: {modal.item.technology}
                       </p>
                     )}
-                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap">
+                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap text-base md:text-lg">
                       {modal.item.description}
                     </p>
                     {modal.item.works && (
@@ -277,9 +314,12 @@ export default function HomeHighlightsModal({
                           href={modal.item.works}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+                          className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
                         >
                           作品リンクを見る
+                          <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                            ↗
+                          </span>
                         </a>
                       </div>
                     )}
