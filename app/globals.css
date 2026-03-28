@@ -12,6 +12,12 @@
   --text-muted: #64748b;
   --accent: #0f172a;
   --accent-contrast: #f8fafc;
+  --info-cta: #1e3a8a;
+  --info-cta-hover: #1e40af;
+  --success-bg: #ecfdf3;
+  --success-border: #bbf7d0;
+  --success-text: #166534;
+  --required-text: #be123c;
 }
 
 @theme inline {
@@ -34,6 +40,12 @@
     --text-muted: #94a3b8;
     --accent: #e2e8f0;
     --accent-contrast: #0f172a;
+    --info-cta: #dbeafe;
+    --info-cta-hover: #bfdbfe;
+    --success-bg: #052e16;
+    --success-border: #166534;
+    --success-text: #86efac;
+    --required-text: #fda4af;
   }
 }
 
@@ -73,6 +85,21 @@ body {
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [class*='hover:scale-']:hover {
+    transform: none !important;
+  }
 }
 
 /* 説明文の行数制限 */

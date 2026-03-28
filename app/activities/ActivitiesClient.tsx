@@ -1,10 +1,12 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { Activity } from '@/lib/api';
-import ActivityDetailModal from '@/components/ActivityDetailModal';
 import CategoryFilterChips from '@/components/ui/CategoryFilterChips';
 import CategoryBadge from '@/components/ui/CategoryBadge';
+
+const ActivityDetailModal = dynamic(() => import('@/components/ActivityDetailModal'));
 
 const categories = ["すべて", "モクモク会", "ハッカソン", "展示会", "懇親会", "イベント"];
 
@@ -207,7 +209,7 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
         </div>
       </section>
 
-      <ActivityDetailModal activity={detailActivity} onClose={() => setDetailActivity(null)} />
+      {detailActivity && <ActivityDetailModal activity={detailActivity} onClose={() => setDetailActivity(null)} />}
     </div>
   );
 }

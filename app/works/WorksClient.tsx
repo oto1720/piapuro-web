@@ -1,11 +1,13 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Work } from '@/lib/api';
-import WorkDetailModal from '@/components/WorkDetailModal';
 import CategoryFilterChips from '@/components/ui/CategoryFilterChips';
 import CategoryBadge from '@/components/ui/CategoryBadge';
 import InteractiveMediaCard from '@/components/ui/InteractiveMediaCard';
+
+const WorkDetailModal = dynamic(() => import('@/components/WorkDetailModal'));
 
 const categories = ["すべて", "モバイルアプリ", "Webアプリ", "ゲーム", "イラスト", "他"];
 
@@ -92,7 +94,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
 
           {filteredWorks.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-lg text-gray-500 font-light">
+              <p className="text-lg text-muted-token font-light">
                 選択されたカテゴリーの作品はありません。
               </p>
             </div>
@@ -129,7 +131,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
         </div>
       </section>
 
-      <WorkDetailModal work={detailWork} onClose={() => setDetailWork(null)} />
+      {detailWork && <WorkDetailModal work={detailWork} onClose={() => setDetailWork(null)} />}
     </div>
   );
 }

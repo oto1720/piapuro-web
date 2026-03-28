@@ -56,17 +56,31 @@ export default function Recruit() {
     <div className="min-h-screen bg-[var(--background)] text-primary-token">
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-8 tracking-tight">
-            Join Us
-          </h1>
-          <p className="text-xl md:text-2xl text-secondary-token font-light max-w-3xl mx-auto leading-relaxed mb-12">
-            新しい仲間をお待ちしています！
-          </p>
-          <div className="inline-block bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-2xl px-8 py-6">
-            <div className="text-2xl font-medium text-primary-token mb-2">現在募集中</div>
-            <div className="text-secondary-token font-light">
-              随時メンバーを募集しています
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+            <div className="text-center lg:text-left">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-8 tracking-tight">
+                Join Us
+              </h1>
+              <p className="text-xl md:text-2xl text-secondary-token font-light max-w-3xl leading-relaxed">
+                新しい仲間をお待ちしています！
+              </p>
+            </div>
+            <div className="bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-3xl p-7 shadow-sm">
+              <div className="text-2xl font-medium text-primary-token mb-3">現在募集中</div>
+              <p className="text-secondary-token font-light leading-relaxed mb-6">
+                随時メンバーを募集しています
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 text-center">
+                  <div className="text-sm text-muted-token">活動日</div>
+                  <div className="text-primary-token font-medium">週2回</div>
+                </div>
+                <div className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 text-center">
+                  <div className="text-sm text-muted-token">参加費</div>
+                  <div className="text-primary-token font-medium">現在なし</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

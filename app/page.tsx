@@ -30,7 +30,7 @@ export default async function Home() {
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/65" />
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="text-center text-white px-6 max-w-4xl">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-thin mb-6 tracking-tight">
@@ -42,13 +42,13 @@ export default async function Home() {
             <div className="space-y-4 md:space-y-0 md:space-x-6 md:flex md:justify-center">
               <Link
                 href="/about"
-                className="tap-target inline-flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-white/20 hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-black/55 backdrop-blur-md border border-white/35 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-black/70 hover:scale-105"
               >
                 サークルについて
               </Link>
               <Link
                 href="/recruit"
-                className="tap-target inline-flex items-center justify-center bg-blue-600/90 backdrop-blur-md text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-blue-700 hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-[var(--info-cta)] text-[var(--accent-contrast)] px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-[var(--info-cta-hover)] hover:scale-105"
               >
                 メンバー募集
               </Link>

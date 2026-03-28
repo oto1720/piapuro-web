@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import type { Activity, Work } from '@/lib/api';
-import WorkDetailModal from '@/components/WorkDetailModal';
-import ActivityDetailModal from '@/components/ActivityDetailModal';
 import CategoryBadge, { getWorkCategoryTextColorClass } from '@/components/ui/CategoryBadge';
 import InteractiveMediaCard from '@/components/ui/InteractiveMediaCard';
+
+const WorkDetailModal = dynamic(() => import('@/components/WorkDetailModal'));
+const ActivityDetailModal = dynamic(() => import('@/components/ActivityDetailModal'));
 
 interface HomeFeaturedSectionsProps {
   featuredWorks: Work[];
@@ -130,8 +132,8 @@ export function HomeFeaturedSections({ featuredWorks, latestActivities }: HomeFe
         </div>
       </section>
 
-      <WorkDetailModal work={detailWork} onClose={() => setDetailWork(null)} />
-      <ActivityDetailModal activity={detailActivity} onClose={() => setDetailActivity(null)} />
+      {detailWork && <WorkDetailModal work={detailWork} onClose={() => setDetailWork(null)} />}
+      {detailActivity && <ActivityDetailModal activity={detailActivity} onClose={() => setDetailActivity(null)} />}
     </>
   );
 }

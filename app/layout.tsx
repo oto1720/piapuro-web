@@ -24,7 +24,7 @@ function parseSiteUrl(value: string | undefined): URL | undefined {
   }
 }
 
-const siteUrl = parseSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+const siteUrl = parseSiteUrl(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000');
 
 const ogImageUrl = siteUrl
   ? new URL("/opengraph-image", siteUrl).toString()
