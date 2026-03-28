@@ -4,7 +4,7 @@ import { useState } from 'react';
 const contactMethods = [
   {
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-secondary-token" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
       </svg>
     ),
@@ -15,7 +15,7 @@ const contactMethods = [
   },
   {
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-secondary-token" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
@@ -27,7 +27,7 @@ const contactMethods = [
   },
   {
     icon: (
-      <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 text-secondary-token" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
@@ -83,43 +83,43 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[var(--background)] text-primary-token">
       {/* ヒーローセクション */}
       <section className="py-20 md:py-32">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-gray-900 mb-8 tracking-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-8 tracking-tight">
             Contact
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-secondary-token font-light max-w-3xl mx-auto leading-relaxed">
             ご質問やご相談がございましたら、お気軽にお問い合わせください
           </p>
         </div>
       </section>
 
       {/* 連絡方法セクション */}
-      <section className="py-20 bg-gray-50/50">
+      <section className="py-20 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {contactMethods.map((method, index) => (
               <div key={index} className="text-center">
-                <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+                <div className="w-20 h-20 bg-[var(--surface-raised)] rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-[var(--border-subtle)]">
                   {method.icon}
                 </div>
-                <h3 className="text-2xl font-medium text-gray-900 mb-4">
+                <h3 className="text-2xl font-medium text-primary-token mb-4">
                   {method.title}
                 </h3>
-                <p className="text-gray-600 font-light mb-6">
+                <p className="text-secondary-token font-light mb-6">
                   {method.description}
                 </p>
                 {method.link ? (
                   <a
                     href={method.link}
-                    className="text-gray-900 hover:text-gray-600 font-medium transition-colors"
+                    className="tap-target inline-flex items-center text-primary-token hover:text-secondary-token font-medium transition-colors"
                   >
                     {method.contact}
                   </a>
                 ) : (
-                  <p className="text-gray-800 font-medium">
+                  <p className="text-primary-token font-medium">
                     {method.contact}
                   </p>
                 )}
@@ -133,12 +133,12 @@ export default function Contact() {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
               お問い合わせフォーム
             </h2>
           </div>
 
-          <div className="bg-white border border-gray-100 rounded-3xl p-12 shadow-sm">
+          <div className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-12 shadow-sm">
             {submitMessage && (
               <div className="mb-8 p-6 bg-green-50 border border-green-100 rounded-2xl" role="status" aria-live="polite">
                 <p className="text-green-700 font-light">{submitMessage}</p>
@@ -148,7 +148,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-3">
+                  <label htmlFor="name" className="block text-sm font-medium text-secondary-token mb-3">
                     お名前 <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -158,13 +158,13 @@ export default function Contact() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                    className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
                     placeholder="山田 太郎"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-3">
+                  <label htmlFor="email" className="block text-sm font-medium text-secondary-token mb-3">
                     メールアドレス <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -174,14 +174,14 @@ export default function Contact() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                    className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
                     placeholder="example@email.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-3">
+                <label htmlFor="subject" className="block text-sm font-medium text-secondary-token mb-3">
                   お問い合わせ種別 <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -190,7 +190,7 @@ export default function Contact() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                  className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
                 >
                   <option value="">選択してください</option>
                   <option value="入会希望">入会希望</option>
@@ -202,7 +202,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-3">
+                <label htmlFor="message" className="block text-sm font-medium text-secondary-token mb-3">
                   メッセージ <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -212,7 +212,7 @@ export default function Contact() {
                   rows={8}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300 resize-none"
+                  className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300 resize-none"
                   placeholder="お問い合わせ内容をご記入ください..."
                 />
               </div>
@@ -221,10 +221,10 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`px-12 py-4 rounded-full font-medium text-white transition-all duration-300 ${
+                  className={`tap-target px-12 py-4 rounded-full font-medium transition-all duration-300 ${
                     isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-gray-900 hover:bg-gray-800 hover:scale-105'
+                      ? 'bg-[var(--surface-hover)] text-muted-token cursor-not-allowed'
+                      : 'bg-[var(--accent)] text-[var(--accent-contrast)] hover:opacity-90 hover:scale-105'
                   }`}
                 >
                   {isSubmitting ? '送信中...' : '送信する'}
@@ -236,10 +236,10 @@ export default function Contact() {
       </section>
 
       {/* よくある質問セクション */}
-      <section className="py-20 bg-gray-50/50">
+      <section className="py-20 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
               よくある質問
             </h2>
           </div>
@@ -262,11 +262,11 @@ export default function Contact() {
                 answer: "はい、年間を通していつでも参加可能です。新しいメンバーはいつでも大歓迎です。"
               }
             ].map((faq, index) => (
-              <div key={index} className="bg-white border border-gray-100 rounded-3xl p-8">
-                <h3 className="text-xl font-medium text-gray-900 mb-4">
+              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8">
+                <h3 className="text-xl font-medium text-primary-token mb-4">
                   Q. {faq.question}
                 </h3>
-                <p className="text-gray-600 font-light leading-relaxed">
+                <p className="text-secondary-token font-light leading-relaxed">
                   A. {faq.answer}
                 </p>
               </div>
