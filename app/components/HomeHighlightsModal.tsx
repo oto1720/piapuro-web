@@ -1,9 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Activity, Work } from '@/lib/api';
+import CategoryBadge, { getWorkCategoryTextColorClass } from '@/components/ui/CategoryBadge';
+import InteractiveMediaCard from '@/components/ui/InteractiveMediaCard';
+import { useModalFocusTrap } from '@/components/ui/useModalFocusTrap';
 
 interface HomeHighlightsModalProps {
   latestActivities: Activity[];
@@ -15,159 +18,144 @@ type ModalState =
   | { type: 'work'; item: Work }
   | null;
 
-function getWorkCategoryColorClass(category: string) {
-  if (category === 'モバイルアプリ') return 'text-blue-600';
-  if (category === 'Webアプリ') return 'text-green-600';
-  if (category === 'ゲーム') return 'text-purple-600';
-  if (category === 'イラスト') return 'text-pink-600';
-  return 'text-gray-600';
-}
-
 export default function HomeHighlightsModal({
   latestActivities,
   featuredWorks,
 }: HomeHighlightsModalProps) {
   const [modal, setModal] = useState<ModalState>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useModalFocusTrap({
+    isOpen: modal !== null,
+    dialogRef,
+    onClose: () => setModal(null),
+  });
 
-  useEffect(() => {
-    if (!modal) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setModal(null);
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [modal]);
+  const dialogTitleId = modal ? `${modal.type}-detail-modal-title` : undefined;
 
   return (
     <>
-      <section className="py-20">
+      <section className="relative overflow-hidden py-20 md:py-24">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] blur-3xl" />
+          <div className="absolute top-16 right-0 h-80 w-80 rounded-full bg-[color-mix(in_srgb,var(--surface-hover)_72%,transparent)] blur-3xl" />
+        </div>
+
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Recent Activities</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-5 tracking-tight">
               最新情報
             </h2>
-            <p className="text-lg text-gray-600 font-light">サークルの最新活動</p>
+            <p className="max-w-2xl text-base md:text-lg text-secondary-token font-light leading-relaxed">
+              サークルの空気感が伝わる活動記録を、見やすさを保ったままダイナミックにまとめています。
+            </p>
           </div>
 
           {latestActivities.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {latestActivities.map((activity) => (
-                <button
+                <InteractiveMediaCard
                   key={activity.id}
-                  type="button"
+                  image={activity.image}
+                  imageAlt={activity.title}
+                  imageSizes="(max-width: 768px) 100vw, 33vw"
+                  imageHeightClassName="h-48"
+                  bodyClassName="p-7 md:p-8"
                   onClick={() => setModal({ type: 'activity', item: activity })}
-                  className="group block text-left"
+                  ariaLabel={`${activity.title}の詳細を開く`}
+                  topRightOverlay={
+                    <span className="inline-flex items-center rounded-full bg-[color-mix(in_srgb,var(--surface-raised)_82%,transparent)] border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-secondary-token backdrop-blur-sm">
+                      {activity.year}
+                    </span>
+                  }
                 >
-                  <article className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                    <div className="h-48 relative overflow-hidden bg-gray-100">
-                      {activity.image ? (
-                        <Image
-                          src={activity.image}
-                          alt={activity.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                          <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-8">
-                      <div className="text-sm text-gray-500 font-light mb-3">{activity.year}</div>
-                      <h3 className="text-xl font-medium text-gray-900 mb-4 transition-colors group-hover:text-gray-700">
-                        {activity.title}
-                      </h3>
-                      <p className="text-gray-600 font-light leading-relaxed line-clamp-3">
-                        {activity.description}
-                      </p>
-                    </div>
-                  </article>
-                </button>
+                  <h3 className="text-xl font-medium text-primary-token mb-4 transition-colors group-hover:text-secondary-token">
+                    {activity.title}
+                  </h3>
+                  <p className="text-secondary-token font-light leading-relaxed line-clamp-3">
+                    {activity.description}
+                  </p>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-secondary-token">
+                    詳細を見る
+                    <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                      →
+                    </span>
+                  </div>
+                </InteractiveMediaCard>
               ))}
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-lg text-gray-500 font-light">最新情報はまだありません。</p>
+              <p className="text-lg text-muted-token font-light">最新情報はまだありません。</p>
             </div>
           )}
 
           <div className="text-center mt-16">
             <Link
               href="/activities"
-              className="inline-block bg-gray-900 text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+              className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての活動を見る
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50/50">
+      <section className="relative overflow-hidden py-20 md:py-24 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
+        <div className="pointer-events-none absolute inset-0 -z-10 [background-image:linear-gradient(to_right,color-mix(in_srgb,var(--border-subtle)_28%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--border-subtle)_28%,transparent)_1px,transparent_1px)] [background-size:44px_44px] opacity-45" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[color-mix(in_srgb,var(--surface-hover)_55%,transparent)] to-transparent" />
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Featured Works</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-5 tracking-tight">
               作品
             </h2>
-            <p className="text-lg text-gray-600 font-light">メンバーが制作した代表的な作品</p>
+            <p className="max-w-2xl text-base md:text-lg text-secondary-token font-light leading-relaxed">
+              メンバーそれぞれの技術と表現を、ジャンルごとの個性が見える導線で紹介しています。
+            </p>
           </div>
 
           {featuredWorks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredWorks.map((work) => (
-                <button
+                <InteractiveMediaCard
                   key={work.id}
-                  type="button"
+                  image={work.image}
+                  imageAlt={work.title}
+                  imageSizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  imageHeightClassName="h-56"
+                  bodyClassName="p-7 md:p-8"
                   onClick={() => setModal({ type: 'work', item: work })}
-                  className="group block text-left"
+                  ariaLabel={`${work.title}の詳細を開く`}
+                  topRightOverlay={<CategoryBadge category={work.category} kind="work" size="sm" />}
                 >
-                  <article className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2">
-                    <div className="h-56 relative overflow-hidden bg-gray-100">
-                      {work.image ? (
-                        <Image
-                          src={work.image}
-                          alt={work.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                          <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-8">
-                      <h3 className="text-xl font-medium text-gray-900 mb-3">{work.title}</h3>
-                      <p className="text-gray-600 font-light mb-4 line-clamp-3">{work.description}</p>
-                      <div className="flex justify-between items-center">
-                        <span className={`text-sm font-medium ${getWorkCategoryColorClass(work.category)}`}>{work.category}</span>
-                        <span className="text-gray-400 transition-colors group-hover:text-gray-600">→</span>
-                      </div>
-                    </div>
-                  </article>
-                </button>
+                  <h3 className="text-xl font-medium text-primary-token mb-3">{work.title}</h3>
+                  <p className="text-secondary-token font-light mb-4 line-clamp-3">{work.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-token">{work.year}</span>
+                    <span aria-hidden="true" className={`text-lg transition-all duration-300 group-hover:translate-x-1 group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
+                  </div>
+                </InteractiveMediaCard>
               ))}
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-lg text-gray-500 font-light">表示できる作品がまだありません。</p>
+              <p className="text-lg text-muted-token font-light">表示できる作品がまだありません。</p>
             </div>
           )}
 
           <div className="text-center mt-16">
             <Link
               href="/works"
-              className="inline-block bg-gray-900 text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+              className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての作品を見る
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </div>
         </div>
@@ -175,21 +163,23 @@ export default function HomeHighlightsModal({
 
       {modal && (
         <div
-          className="fixed inset-0 z-50 bg-black/55 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 bg-[color-mix(in_srgb,var(--hero-base)_58%,black)] backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-fade-in"
           onClick={() => setModal(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={modal.type === 'activity' ? '活動詳細' : '作品詳細'}
+          aria-labelledby={dialogTitleId}
         >
           <div
-            className="w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-white border border-gray-100 rounded-3xl shadow-2xl"
+            ref={dialogRef}
+            tabIndex={-1}
+            className="w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl shadow-2xl shadow-black/35"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b border-gray-100 p-4 md:p-6 flex justify-end">
+            <div className="sticky top-0 z-10 bg-[color-mix(in_srgb,var(--surface-raised)_92%,transparent)] backdrop-blur-sm border-b border-[var(--border-subtle)] p-4 md:p-6 flex justify-end">
               <button
                 type="button"
                 onClick={() => setModal(null)}
-                className="w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                className="tap-target w-11 h-11 rounded-full bg-[var(--surface-muted)] text-secondary-token hover:bg-[var(--surface-hover)] transition-colors text-xl leading-none"
                 aria-label="閉じる"
               >
                 ×
@@ -197,7 +187,8 @@ export default function HomeHighlightsModal({
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="relative min-h-[280px] lg:min-h-[520px] bg-gray-100">
+              <div className="relative min-h-[280px] lg:min-h-[560px] bg-[var(--surface-muted)]">
+                <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/30 via-transparent to-black/5" />
                 {modal.item.image ? (
                   <Image
                     src={modal.item.image}
@@ -205,31 +196,32 @@ export default function HomeHighlightsModal({
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-full h-full bg-gradient-to-br from-[var(--surface-muted)] to-[var(--surface-hover)] flex items-center justify-center">
+                    <svg className="w-16 h-16 text-muted-token" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
                 )}
               </div>
 
-              <div className="p-8 md:p-12">
+              <div className="relative p-8 md:p-12 lg:p-14">
+                <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-bl-[2.5rem] bg-[color-mix(in_srgb,var(--accent)_12%,transparent)]" />
                 {modal.type === 'activity' ? (
                   <>
                     <div className="flex items-center gap-3 flex-wrap mb-5">
-                      <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
-                        {modal.item.category}
-                      </span>
-                      <span className="text-sm text-gray-500">{modal.item.year}</span>
-                      <span className="text-sm text-gray-500">参加者 {modal.item.participants}名</span>
+                      <CategoryBadge category={modal.item.category} kind="activity" size="md" />
+                      <span className="text-sm text-muted-token">{modal.item.year}</span>
+                      <span className="text-sm text-muted-token">参加者 {modal.item.participants}名</span>
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-thin text-gray-900 mb-8 tracking-tight">
+                    <h3
+                      id={dialogTitleId}
+                      className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-8 tracking-tight leading-tight"
+                    >
                       {modal.item.title}
                     </h3>
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap text-base md:text-lg">
                       {modal.item.description}
                     </p>
                     {modal.item.active && (
@@ -238,9 +230,12 @@ export default function HomeHighlightsModal({
                           href={modal.item.active}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block bg-gray-900 text-white px-8 py-3 rounded-full text-base font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+                          className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
                         >
                           関連リンクを見る
+                          <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                            ↗
+                          </span>
                         </a>
                       </div>
                     )}
@@ -248,23 +243,24 @@ export default function HomeHighlightsModal({
                 ) : (
                   <>
                     <div className="flex items-center gap-3 flex-wrap mb-5">
-                      <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
-                        {modal.item.category}
-                      </span>
-                      <span className="text-sm text-gray-500">{modal.item.year}</span>
+                      <CategoryBadge category={modal.item.category} kind="work" size="md" />
+                      <span className="text-sm text-muted-token">{modal.item.year}</span>
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-thin text-gray-900 mb-6 tracking-tight">
+                    <h3
+                      id={dialogTitleId}
+                      className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-6 tracking-tight leading-tight"
+                    >
                       {modal.item.title}
                     </h3>
-                    <p className="text-base md:text-lg text-gray-600 font-light mb-3">
+                    <p className="text-base md:text-lg text-secondary-token font-light mb-3">
                       作者: {modal.item.artist}
                     </p>
                     {modal.item.technology && (
-                      <p className="text-base md:text-lg text-gray-600 font-light mb-8">
+                      <p className="text-base md:text-lg text-secondary-token font-light mb-8">
                         技術: {modal.item.technology}
                       </p>
                     )}
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-secondary-token leading-relaxed whitespace-pre-wrap text-base md:text-lg">
                       {modal.item.description}
                     </p>
                     {modal.item.works && (
@@ -273,9 +269,12 @@ export default function HomeHighlightsModal({
                           href={modal.item.works}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block bg-gray-900 text-white px-8 py-3 rounded-full text-base font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
+                          className="group inline-flex items-center justify-center gap-2 tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-8 py-3 rounded-full text-base font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
                         >
                           作品リンクを見る
+                          <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                            ↗
+                          </span>
                         </a>
                       </div>
                     )}

@@ -1,8 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9fb;
+  --foreground: #111827;
+  --surface-raised: #ffffff;
+  --surface-muted: #f1f5f9;
+  --surface-hover: #e2e8f0;
+  --border-subtle: #dbe2ea;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent: #0f172a;
+  --accent-contrast: #f8fafc;
+  --info-cta: #1e3a8a;
+  --info-cta-hover: #1e40af;
+  --success-bg: #ecfdf3;
+  --success-border: #bbf7d0;
+  --success-text: #166534;
+  --required-text: #be123c;
+  --hero-base: #0f172a;
+  --hero-text: #f8fafc;
+  --hero-overlay-top: rgba(15, 23, 42, 0.2);
+  --hero-overlay-mid: rgba(15, 23, 42, 0.12);
+  --hero-overlay-bottom: rgba(15, 23, 42, 0.3);
+  --hero-chip-bg: rgba(15, 23, 42, 0.55);
+  --hero-chip-border: rgba(248, 250, 252, 0.35);
+  --hero-chip-hover: rgba(15, 23, 42, 0.7);
+  --hero-icon-primary-from: #2563eb;
+  --hero-icon-primary-to: #1d4ed8;
+  --hero-icon-secondary-from: #0f766e;
+  --hero-icon-secondary-to: #0f766e;
 }
 
 @theme inline {
@@ -14,15 +41,60 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --foreground: #e2e8f0;
+    --surface-raised: #121c2f;
+    --surface-muted: #1a2840;
+    --surface-hover: #243553;
+    --border-subtle: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent: #e2e8f0;
+    --accent-contrast: #0f172a;
+    --info-cta: #dbeafe;
+    --info-cta-hover: #bfdbfe;
+    --success-bg: #052e16;
+    --success-border: #166534;
+    --success-text: #86efac;
+    --required-text: #fda4af;
+    --hero-base: #020617;
+    --hero-text: #f8fafc;
+    --hero-overlay-top: rgba(2, 6, 23, 0.24);
+    --hero-overlay-mid: rgba(2, 6, 23, 0.16);
+    --hero-overlay-bottom: rgba(2, 6, 23, 0.36);
+    --hero-chip-bg: rgba(2, 6, 23, 0.55);
+    --hero-chip-border: rgba(226, 232, 240, 0.4);
+    --hero-chip-hover: rgba(2, 6, 23, 0.75);
+    --hero-icon-primary-from: #60a5fa;
+    --hero-icon-primary-to: #3b82f6;
+    --hero-icon-secondary-from: #2dd4bf;
+    --hero-icon-secondary-to: #14b8a6;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+  color-scheme: light dark;
+}
+
+.tap-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.text-primary-token {
+  color: var(--text-primary);
+}
+
+.text-secondary-token {
+  color: var(--text-secondary);
+}
+
+.text-muted-token {
+  color: var(--text-muted);
 }
 
 /* カスタムアニメーション */
@@ -39,10 +111,26 @@ body {
   animation: fade-in 0.3s ease-in-out;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [class*='hover:scale-']:hover {
+    transform: none !important;
+  }
+}
+
 /* 説明文の行数制限 */
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
