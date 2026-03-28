@@ -22,15 +22,15 @@ function getSocialIcon(id: string) {
 export default function Contact() {
   return (
     <div className="min-h-screen overflow-hidden bg-[var(--background)] text-primary-token">
-      <section className="relative py-20 md:py-28 lg:py-32">
+      <section className="relative pt-12 pb-10 md:pt-16 md:pb-12 lg:pt-20 lg:pb-14">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-24 -left-12 h-64 w-64 rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] blur-3xl" />
           <div className="absolute top-12 right-0 h-80 w-80 rounded-full bg-[color-mix(in_srgb,var(--surface-hover)_75%,transparent)] blur-3xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6">
-          <p className="mb-5 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Contact Route</p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-thin text-primary-token tracking-tight mb-6 md:mb-8">
+          <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Contact Route</p>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-thin text-primary-token tracking-tight mb-4 md:mb-6">
             Contact
           </h1>
           <p className="text-lg md:text-2xl text-secondary-token font-light max-w-3xl leading-relaxed">
