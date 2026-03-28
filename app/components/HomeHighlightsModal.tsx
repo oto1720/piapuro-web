@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Activity, Work } from '@/lib/api';
 import CategoryBadge, { getWorkCategoryTextColorClass } from '@/components/ui/CategoryBadge';
 import InteractiveMediaCard from '@/components/ui/InteractiveMediaCard';
+import { useModalFocusTrap } from '@/components/ui/useModalFocusTrap';
 
 interface HomeHighlightsModalProps {
   latestActivities: Activity[];
@@ -23,65 +24,13 @@ export default function HomeHighlightsModal({
 }: HomeHighlightsModalProps) {
   const [modal, setModal] = useState<ModalState>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const previousFocusedRef = useRef<HTMLElement | null>(null);
+  useModalFocusTrap({
+    isOpen: modal !== null,
+    dialogRef,
+    onClose: () => setModal(null),
+  });
 
-  useEffect(() => {
-    if (!modal) return;
-    const prevOverflow = document.body.style.overflow;
-    previousFocusedRef.current =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    document.body.style.overflow = 'hidden';
-
-    const dialog = dialogRef.current;
-    if (dialog) {
-      const focusable = dialog.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-      );
-
-      if (focusable.length > 0) {
-        focusable[0].focus();
-      } else {
-        dialog.focus();
-      }
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setModal(null);
-        return;
-      }
-
-      if (event.key === 'Tab' && dialog) {
-        const focusable = dialog.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-        );
-
-        if (focusable.length === 0) {
-          event.preventDefault();
-          dialog.focus();
-          return;
-        }
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener('keydown', onKeyDown);
-      previousFocusedRef.current?.focus();
-    };
-  }, [modal]);
+  const dialogTitleId = modal ? `${modal.type}-detail-modal-title` : undefined;
 
   return (
     <>
@@ -187,7 +136,7 @@ export default function HomeHighlightsModal({
                   <p className="text-secondary-token font-light mb-4 line-clamp-3">{work.description}</p>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-token">{work.year}</span>
-                    <span className={`text-lg transition-all duration-300 group-hover:translate-x-1 group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
+                    <span aria-hidden="true" className={`text-lg transition-all duration-300 group-hover:translate-x-1 group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
                   </div>
                 </InteractiveMediaCard>
               ))}
@@ -218,7 +167,7 @@ export default function HomeHighlightsModal({
           onClick={() => setModal(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={modal.type === 'activity' ? '活動詳細' : '作品詳細'}
+          aria-labelledby={dialogTitleId}
         >
           <div
             ref={dialogRef}
@@ -266,7 +215,10 @@ export default function HomeHighlightsModal({
                       <span className="text-sm text-muted-token">{modal.item.year}</span>
                       <span className="text-sm text-muted-token">参加者 {modal.item.participants}名</span>
                     </div>
-                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-8 tracking-tight leading-tight">
+                    <h3
+                      id={dialogTitleId}
+                      className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-8 tracking-tight leading-tight"
+                    >
                       {modal.item.title}
                     </h3>
                     <p className="text-secondary-token leading-relaxed whitespace-pre-wrap text-base md:text-lg">
@@ -294,7 +246,10 @@ export default function HomeHighlightsModal({
                       <CategoryBadge category={modal.item.category} kind="work" size="md" />
                       <span className="text-sm text-muted-token">{modal.item.year}</span>
                     </div>
-                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-6 tracking-tight leading-tight">
+                    <h3
+                      id={dialogTitleId}
+                      className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token mb-6 tracking-tight leading-tight"
+                    >
                       {modal.item.title}
                     </h3>
                     <p className="text-base md:text-lg text-secondary-token font-light mb-3">

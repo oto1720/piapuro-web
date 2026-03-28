@@ -109,7 +109,7 @@ export function HomeFeaturedSections({ featuredWorks, latestActivities }: HomeFe
                     </p>
                     <div className="flex justify-between items-center">
                       <CategoryBadge category={work.category} kind="work" size="sm" />
-                      <span className={`transition-colors group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
+                      <span aria-hidden="true" className={`transition-colors group-hover:text-secondary-token ${getWorkCategoryTextColorClass(work.category)}`}>→</span>
                     </div>
                   </InteractiveMediaCard>
                 </div>

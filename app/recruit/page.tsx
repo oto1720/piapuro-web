@@ -14,7 +14,7 @@ const benefits = [
       </svg>
     ),
     title: "スキルアップ",
-    description: "定期的な勉強会やワークショップで、創作技術を向上させることができます。"
+    description: "定期的な勉強会やワークショップで、創作技術を向上させることができます。",
   },
   {
     icon: (
@@ -23,7 +23,7 @@ const benefits = [
       </svg>
     ),
     title: "仲間との出会い",
-    description: "同じ趣味を持つ仲間と出会い、一緒に創作活動を楽しむことができます。"
+    description: "同じ趣味を持つ仲間と出会い、一緒に創作活動を楽しむことができます。",
   },
   {
     icon: (
@@ -32,7 +32,7 @@ const benefits = [
       </svg>
     ),
     title: "作品発表の場",
-    description: "定期的な作品展やコンテストで、あなたの作品を多くの人に見てもらえます。"
+    description: "定期的な作品展やコンテストで、あなたの作品を多くの人に見てもらえます。",
   },
   {
     icon: (
@@ -41,200 +41,226 @@ const benefits = [
       </svg>
     ),
     title: "創作への情熱共有",
-    description: "創作への熱い想いを共有し、お互いに刺激し合いながら成長できます。"
-  }
+    description: "創作への熱い想いを共有し、お互いに刺激し合いながら成長できます。",
+  },
 ];
 
 const requirements = [
   "創作活動に興味・関心がある方",
   "仲間と協調して活動できる方",
-  "向上心を持って取り組める方"
+  "向上心を持って取り組める方",
+];
+
+const specs = [
+  { label: '対象', value: '学生（ほかの大学でも可）' },
+  { label: '募集人数', value: '何人でも' },
+  { label: '活動費', value: '今の所なし' },
+  { label: '活動日時', value: '毎週月曜日、木曜日 18:00〜20:00' },
+  { label: '活動場所', value: '福岡大学 14号館 3階' },
+];
+
+const faqs = [
+  {
+    question: '初心者でも参加できますか？',
+    answer:
+      'もちろんです。経験や技術レベルは問いません。みんなで一緒に学び、成長していくことを大切にしています。',
+  },
+  {
+    question: 'いるものはありますか？',
+    answer: '基本的にパソコンがあれば大丈夫です。',
+  },
+  {
+    question: '毎回参加しなければいけませんか？',
+    answer:
+      '無理に毎回参加する必要はありません。学業や他の活動との両立を考慮し、無理のない範囲での参加をお願いしています。',
+  },
+  {
+    question: 'どんなジャンルの創作活動を行っていますか？',
+    answer: 'モバイルアプリ開発やweb開発、ゲーム開発をしている人が多いですがジャンルは問いません。',
+  },
 ];
 
 export default function Recruit() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-primary-token">
-      {/* ヒーローセクション */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-thin text-primary-token mb-8 tracking-tight">
+    <div className="min-h-screen overflow-hidden bg-[var(--background)] text-primary-token">
+      <section className="relative isolate py-20 md:py-28 lg:py-32">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-[color-mix(in_srgb,var(--accent)_16%,transparent)] blur-3xl" />
+          <div className="absolute top-20 right-0 h-96 w-96 rounded-full bg-[color-mix(in_srgb,var(--surface-hover)_78%,transparent)] blur-3xl" />
+          <div className="absolute inset-0 [background-image:linear-gradient(to_right,color-mix(in_srgb,var(--border-subtle)_30%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--border-subtle)_30%,transparent)_1px,transparent_1px)] [background-size:44px_44px] opacity-35" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12 items-end">
+            <div>
+              <p className="mb-5 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">
+                Recruit 2026
+              </p>
+              <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin leading-[0.9] tracking-tight text-primary-token">
                 Join Us
               </h1>
-              <p className="text-xl md:text-2xl text-secondary-token font-light max-w-3xl leading-relaxed">
-                新しい仲間をお待ちしています！
+              <p className="mt-8 max-w-2xl text-lg md:text-2xl text-secondary-token font-light leading-relaxed">
+                新しい仲間をお待ちしています。つくることを楽しみ、挑戦を続けるメンバーと一緒に次の作品を生み出しましょう。
               </p>
-            </div>
-            <div className="bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-3xl p-7 shadow-sm">
-              <div className="text-2xl font-medium text-primary-token mb-3">現在募集中</div>
-              <p className="text-secondary-token font-light leading-relaxed mb-6">
-                随時メンバーを募集しています
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 text-center">
-                  <div className="text-sm text-muted-token">活動日</div>
-                  <div className="text-primary-token font-medium">週2回</div>
-                </div>
-                <div className="rounded-2xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] p-4 text-center">
-                  <div className="text-sm text-muted-token">参加費</div>
-                  <div className="text-primary-token font-medium">現在なし</div>
-                </div>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:gap-5">
+                <Link
+                  href="/contact"
+                  className="group tap-target inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--accent-contrast)] rounded-full px-9 py-4 text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+                >
+                  今すぐ連絡する
+                  <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                    ↗
+                  </span>
+                </Link>
+                <Link
+                  href="/activities"
+                  className="group tap-target inline-flex items-center justify-center gap-2 bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token rounded-full px-9 py-4 text-lg font-medium transition-[transform,background-color] duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
+                >
+                  活動を見る
+                  <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
               </div>
             </div>
+
+            <aside className="rounded-[2rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-7 md:p-8 shadow-xl shadow-black/5">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-token">Now Open</p>
+              <h2 className="mt-3 text-3xl md:text-4xl font-thin tracking-tight text-primary-token">現在募集中</h2>
+              <p className="mt-4 text-secondary-token font-light leading-relaxed">
+                随時メンバーを募集しています。見学だけでも歓迎です。
+              </p>
+              <div className="mt-7 grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4 text-center">
+                  <div className="text-xs uppercase tracking-[0.16em] text-muted-token">活動日</div>
+                  <div className="mt-2 text-lg font-medium text-primary-token">週2回</div>
+                </div>
+                <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4 text-center">
+                  <div className="text-xs uppercase tracking-[0.16em] text-muted-token">参加費</div>
+                  <div className="mt-2 text-lg font-medium text-primary-token">現在なし</div>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
 
-      {/* メリットセクション */}
-      <section className="py-20 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
-              サークルに参加するメリット
+      <section className="relative py-20 md:py-24 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Why PIA PRO</p>
+            <h2 className="text-4xl md:text-6xl font-thin text-primary-token tracking-tight">
+              サークルで得られること
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-8">
             {benefits.map((benefit, index) => (
-              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
-                <div className="flex items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-2xl flex items-center justify-center">
-                      {benefit.icon}
-                    </div>
+              <article
+                key={benefit.title}
+                  className={`rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-7 md:p-8 transition-[box-shadow,border-color] duration-300 hover:shadow-lg hover:shadow-black/5 hover:border-[color-mix(in_srgb,var(--accent)_18%,var(--border-subtle))] ${index % 2 === 1 ? 'md:translate-y-10' : ''}`}
+              >
+                <div className="flex items-start gap-5 md:gap-6">
+                  <div className="mt-1 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
+                    {benefit.icon}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-medium text-primary-token mb-4">
+                    <h3 className="text-2xl md:text-3xl font-medium text-primary-token tracking-tight mb-3 md:mb-4">
                       {benefit.title}
                     </h3>
-                    <p className="text-secondary-token font-light leading-relaxed">
-                      {benefit.description}
-                    </p>
+                    <p className="text-secondary-token font-light leading-relaxed">{benefit.description}</p>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 募集要項セクション */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-8 tracking-tight">
-                募集要項
-              </h2>
-              <div className="bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-3xl p-8">
-                <div className="space-y-6">
-                  {[
-                    { label: "対象", value: "学生（ほかの大学でも可）" },
-                    { label: "募集人数", value: "何人でも" },
-                    { label: "活動費", value: "今の所なし" },
-                    { label: "活動日時", value: "毎週月曜日、木曜日 18:00〜20:00" },
-                    { label: "活動場所", value: "福岡大学 14号館 3階" }
-                  ].map((item, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2">
-                      <div className="font-medium text-primary-token sm:w-24">
-                        {item.label}
-                      </div>
-                      <div className="text-secondary-token font-light">
-                        {item.value}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+      <section className="py-20 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 xl:grid-cols-[1fr_1.05fr] gap-10 xl:gap-14">
+          <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-8 md:p-10">
+            <p className="text-xs font-semibold tracking-[0.28em] uppercase text-muted-token mb-4">Requirements</p>
+            <h2 className="text-4xl md:text-5xl font-thin text-primary-token tracking-tight mb-8">応募条件</h2>
+            <ul className="space-y-5">
+              {requirements.map((requirement) => (
+                <li key={requirement} className="flex items-start gap-4">
+                  <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[var(--accent-contrast)]">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-secondary-token font-light text-lg leading-relaxed">{requirement}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-8 tracking-tight">
-                応募条件
-              </h2>
-              <div className="bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-3xl p-8">
-                <ul className="space-y-4">
-                  {requirements.map((requirement, index) => (
-                    <li key={index} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-6 h-6 bg-[var(--accent)] rounded-full flex items-center justify-center mt-1">
-                        <svg className="w-3 h-3 text-[var(--accent-contrast)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-secondary-token font-light">{requirement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-8 md:p-10">
+            <p className="text-xs font-semibold tracking-[0.28em] uppercase text-muted-token mb-4">Specs</p>
+            <h2 className="text-4xl md:text-5xl font-thin text-primary-token tracking-tight mb-8">募集要項</h2>
+            <dl className="space-y-5">
+              {specs.map((item) => (
+                <div
+                  key={item.label}
+                  className="grid grid-cols-1 sm:grid-cols-[7.5rem_1fr] gap-2 sm:gap-4 border-b border-[color-mix(in_srgb,var(--border-subtle)_85%,transparent)] pb-4"
+                >
+                  <dt className="text-primary-token font-medium">{item.label}</dt>
+                  <dd className="text-secondary-token font-light leading-relaxed">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* よくある質問セクション */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-6 tracking-tight">
-              よくある質問
-            </h2>
+      <section className="py-20 md:py-24 bg-[color-mix(in_srgb,var(--surface-muted)_58%,transparent)]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-14 md:mb-16">
+            <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">FAQ</p>
+            <h2 className="text-4xl md:text-6xl font-thin text-primary-token tracking-tight">よくある質問</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                question: "初心者でも参加できますか？",
-                answer: "もちろんです！経験や技術レベルは問いません。みんなで一緒に学び、成長していくことを大切にしています。"
-              },
-              {
-                question: "いるものはありますか？",
-                answer: "基本的にパソコンがあれば大丈夫です。"
-              },
-              {
-                question: "毎回参加しなければいけませんか？",
-                answer: "無理に毎回参加する必要はありません。学業や他の活動との両立を考慮し、無理のない範囲での参加をお願いしています。"
-              },
-              {
-                question: "どんなジャンルの創作活動を行っていますか？",
-                answer: "モバイルアプリ開発やweb開発、ゲーム開発をしている人が多いですがジャンルは問いません。"
-              }
-            ].map((faq, index) => (
-              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8">
-                <h3 className="text-xl font-medium text-primary-token mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-7">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-7 md:p-8">
+                <h3 className="text-xl md:text-2xl font-medium text-primary-token tracking-tight mb-4">
                   Q. {faq.question}
                 </h3>
-                <p className="text-secondary-token font-light leading-relaxed">
-                  A. {faq.answer}
-                </p>
-              </div>
+                <p className="text-secondary-token font-light leading-relaxed">A. {faq.answer}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTAセクション */}
-      <section className="py-20 bg-[color-mix(in_srgb,var(--surface-muted)_65%,transparent)]">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-thin text-primary-token mb-8 tracking-tight">
-              まずは気軽にお問い合わせください
-            </h2>
-            <p className="text-lg text-secondary-token font-light mb-12 leading-relaxed">
-              興味を持っていただけた方は、お気軽にお問い合わせください。<br />
-              見学だけでも大歓迎です！創作活動を通じて、素晴らしい仲間との出会いが待っています。
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link
-                href="/contact"
-                className="tap-target inline-flex items-center justify-center bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
-              >
-                お問い合わせ
-              </Link>
-              <Link
-                href="/activities"
-                className="tap-target inline-flex items-center justify-center bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-[transform,background-color] duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
-              >
-                活動記録を見る
-              </Link>
+      <section className="py-20 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="rounded-[2rem] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-8 py-12 md:px-12 md:py-14 text-center">
+            <div>
+              <p className="mb-4 text-xs font-semibold tracking-[0.28em] uppercase text-muted-token">Let&apos;s Start</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-thin text-primary-token tracking-tight mb-6 md:mb-8">
+                まずは気軽にお問い合わせください
+              </h2>
+              <p className="max-w-3xl mx-auto text-lg text-secondary-token font-light leading-relaxed mb-10">
+                見学だけでも大歓迎です。創作活動を通じて、素晴らしい仲間との出会いが待っています。
+              </p>
+              <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                <Link
+                  href="/contact"
+                  className="group tap-target inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
+                >
+                  お問い合わせ
+                  <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                    ↗
+                  </span>
+                </Link>
+                <Link
+                  href="/activities"
+                  className="group tap-target inline-flex items-center justify-center bg-[var(--surface-muted)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-[transform,background-color] duration-300 hover:bg-[var(--surface-hover)] hover:scale-105"
+                >
+                  活動記録を見る
+                </Link>
+              </div>
             </div>
           </div>
         </div>

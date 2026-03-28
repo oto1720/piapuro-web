@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { Work } from '@/lib/api';
 import { WorkDetailView } from './WorkDetailView';
+import { useModalFocusTrap } from '@/components/ui/useModalFocusTrap';
 
 interface WorkDetailModalProps {
   work: Work | null;
@@ -11,61 +12,11 @@ interface WorkDetailModalProps {
 
 export default function WorkDetailModal({ work, onClose }: WorkDetailModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
-  const previousFocusedRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!work) return;
-    const prev = document.body.style.overflow;
-    previousFocusedRef.current =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    document.body.style.overflow = 'hidden';
-
-    const dialog = dialogRef.current;
-    if (dialog) {
-      const focusable = dialog.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable.length > 0) {
-        focusable[0].focus();
-      } else {
-        dialog.focus();
-      }
-    }
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-
-      if (e.key === 'Tab' && dialog) {
-        const focusable = dialog.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-        );
-
-        if (focusable.length === 0) {
-          e.preventDefault();
-          dialog.focus();
-          return;
-        }
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
-      previousFocusedRef.current?.focus();
-    };
-  }, [work, onClose]);
+  useModalFocusTrap({
+    isOpen: work !== null,
+    dialogRef,
+    onClose,
+  });
 
   if (!work) return null;
 

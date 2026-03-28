@@ -1,40 +1,51 @@
+import type { CSSProperties } from 'react';
+
 interface CategoryBadgeProps {
   category: string;
   kind: 'work' | 'activity';
   size?: 'sm' | 'md';
 }
 
-const workCategoryColors: Record<string, string> = {
-  モバイルアプリ: 'bg-sky-100 text-sky-800 dark:bg-sky-900/35 dark:text-sky-200',
-  Webアプリ: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/35 dark:text-emerald-200',
-  ゲーム: 'bg-violet-100 text-violet-800 dark:bg-violet-900/35 dark:text-violet-200',
-  イラスト: 'bg-rose-100 text-rose-800 dark:bg-rose-900/35 dark:text-rose-200',
-  他: 'bg-amber-100 text-amber-800 dark:bg-amber-900/35 dark:text-amber-200',
+const workCategoryTokens: Record<string, string> = {
+  モバイルアプリ: 'sky',
+  Webアプリ: 'emerald',
+  ゲーム: 'violet',
+  イラスト: 'rose',
+  他: 'amber',
 };
 
-const activityCategoryColors: Record<string, string> = {
-  モクモク会: 'bg-sky-100 text-sky-800 dark:bg-sky-900/35 dark:text-sky-200',
-  ハッカソン: 'bg-violet-100 text-violet-800 dark:bg-violet-900/35 dark:text-violet-200',
-  展示会: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/35 dark:text-emerald-200',
-  懇親会: 'bg-rose-100 text-rose-800 dark:bg-rose-900/35 dark:text-rose-200',
-  イベント: 'bg-amber-100 text-amber-800 dark:bg-amber-900/35 dark:text-amber-200',
+const activityCategoryTokens: Record<string, string> = {
+  モクモク会: 'sky',
+  ハッカソン: 'violet',
+  展示会: 'emerald',
+  懇親会: 'rose',
+  イベント: 'amber',
 };
 
-function getCategoryColorClass(kind: 'work' | 'activity', category: string) {
-  const palette = kind === 'work' ? workCategoryColors : activityCategoryColors;
-  return palette[category] ?? 'bg-[var(--surface-muted)] text-[var(--text-secondary)]';
+function getCategoryToken(kind: 'work' | 'activity', category: string) {
+  const palette = kind === 'work' ? workCategoryTokens : activityCategoryTokens;
+  return palette[category] ?? null;
 }
 
 export function getWorkCategoryTextColorClass(category: string) {
-  const colorClass = getCategoryColorClass('work', category);
+  const token = getCategoryToken('work', category);
 
-  if (colorClass.includes('sky')) return 'text-sky-600 dark:text-sky-300';
-  if (colorClass.includes('emerald')) return 'text-emerald-600 dark:text-emerald-300';
-  if (colorClass.includes('violet')) return 'text-violet-600 dark:text-violet-300';
-  if (colorClass.includes('rose')) return 'text-rose-600 dark:text-rose-300';
-  if (colorClass.includes('amber')) return 'text-amber-600 dark:text-amber-300';
+  if (token) return `text-[var(--category-${token}-text-strong)]`;
 
   return 'text-[var(--text-secondary)]';
+}
+
+function getCategoryStyle(kind: 'work' | 'activity', category: string): CSSProperties | undefined {
+  const token = getCategoryToken(kind, category);
+
+  if (!token) {
+    return undefined;
+  }
+
+  return {
+    backgroundColor: `var(--category-${token}-bg)`,
+    color: `var(--category-${token}-text)`,
+  };
 }
 
 export default function CategoryBadge({
@@ -47,8 +58,9 @@ export default function CategoryBadge({
       className={[
         'inline-flex items-center rounded-full font-medium',
         size === 'sm' ? 'px-3 py-1 text-xs' : 'px-4 py-2 text-sm',
-        getCategoryColorClass(kind, category),
+        'bg-[var(--surface-muted)] text-[var(--text-secondary)]',
       ].join(' ')}
+      style={getCategoryStyle(kind, category)}
     >
       {category}
     </span>

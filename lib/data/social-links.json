@@ -1,0 +1,24 @@
+{
+  "socialLinks": [
+    {
+      "id": "twitter",
+      "platform": "X (Twitter)",
+      "title": "DMでお問い合わせ",
+      "description": "見学相談や質問は、DMでご連絡ください。",
+      "handle": "@FUprogram",
+      "url": "https://x.com/FUprogram",
+      "cta": "Xで連絡する",
+      "primary": true
+    },
+    {
+      "id": "marshmallow",
+      "platform": "マシュマロ",
+      "title": "匿名で質問する",
+      "description": "気軽な質問や不安な点は匿名でも送れます。",
+      "handle": "福大ピアプロ",
+      "url": "https://marshmallow-qa.com/bnoveiu343ai9xv",
+      "cta": "マシュマロを送る",
+      "primary": true
+    }
+  ]
+}
