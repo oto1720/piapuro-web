@@ -47,7 +47,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-12 shadow-sm">
+    <div className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm">
       {submitMessage && (
         <div
           className="mb-8 p-6 bg-[var(--success-bg)] border border-[var(--success-border)] rounded-2xl"
@@ -71,7 +71,7 @@ export function ContactForm() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
+              className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-[border-color,box-shadow] duration-300"
               placeholder="山田 太郎"
             />
           </div>
@@ -87,7 +87,7 @@ export function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
+              className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-[border-color,box-shadow] duration-300"
               placeholder="example@email.com"
             />
           </div>
@@ -103,7 +103,7 @@ export function ContactForm() {
             required
             value={formData.subject}
             onChange={handleChange}
-            className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300"
+            className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-[border-color,box-shadow] duration-300"
           >
             <option value="">選択してください</option>
             <option value="入会希望">入会希望</option>
@@ -125,7 +125,7 @@ export function ContactForm() {
             rows={8}
             value={formData.message}
             onChange={handleChange}
-            className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all duration-300 resize-none"
+            className="w-full px-6 py-4 border border-[var(--border-subtle)] bg-[var(--surface-raised)] rounded-2xl text-primary-token placeholder:text-muted-token focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-[border-color,box-shadow] duration-300 resize-none"
             placeholder="お問い合わせ内容をご記入ください..."
           />
         </div>
@@ -134,7 +134,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`tap-target px-12 py-4 rounded-full font-medium transition-all duration-300 ${
+            className={`tap-target px-12 py-4 rounded-full font-medium transition-[transform,opacity,background-color] duration-300 ${
               isSubmitting
                 ? 'bg-[var(--surface-hover)] text-muted-token cursor-not-allowed'
                 : 'bg-[var(--accent)] text-[var(--accent-contrast)] hover:opacity-90 hover:scale-105'

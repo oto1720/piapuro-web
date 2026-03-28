@@ -96,7 +96,7 @@ export default function Recruit() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {benefits.map((benefit, index) => (
-              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-300">
+              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 bg-[var(--surface-muted)] border border-[var(--border-subtle)] rounded-2xl flex items-center justify-center">
@@ -225,13 +225,13 @@ export default function Recruit() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 href="/contact"
-                className="tap-target inline-flex items-center justify-center bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:opacity-90 hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
               >
                 お問い合わせ
               </Link>
               <Link
                 href="/activities"
-                className="tap-target inline-flex items-center justify-center bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-[transform,background-color] duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
               >
                 活動記録を見る
               </Link>

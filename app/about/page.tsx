@@ -136,7 +136,7 @@ export default function About() {
                 description: "新歓イベントや親睦会を通じて、メンバー同士の絆を深めています。創作以外の時間も大切にしています。"
               }
             ].map((item, index) => (
-              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2 transition-all duration-300">
+              <div key={index} className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-3xl p-8 hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2 transition-[transform,box-shadow] duration-300">
                 <h3 className="text-2xl font-medium text-primary-token mb-6">
                   {item.title}
                 </h3>

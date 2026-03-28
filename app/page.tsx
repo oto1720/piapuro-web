@@ -19,20 +19,25 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-primary-token">
       {/* ヒーロー画像セクション */}
-      <section className="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden bg-black">
+      <section className="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden bg-[var(--hero-base)]">
         <div className="absolute inset-0">
           <Image
             src="/piapuro.jpg"
-            alt=""
+            alt="福大ピアプロの活動風景"
             fill
-            className="object-cover opacity-80"
+            className="object-cover"
             priority
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/65" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to bottom, var(--hero-overlay-top), var(--hero-overlay-mid), var(--hero-overlay-bottom))`,
+          }}
+        />
         <div className="relative z-10 h-full flex items-center justify-center">
-          <div className="text-center text-white px-6 max-w-4xl">
+          <div className="text-center text-[var(--hero-text)] px-6 max-w-4xl">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-thin mb-6 tracking-tight">
               福大ピアプロ
             </h1>
@@ -42,13 +47,13 @@ export default async function Home() {
             <div className="space-y-4 md:space-y-0 md:space-x-6 md:flex md:justify-center">
               <Link
                 href="/about"
-                className="tap-target inline-flex items-center justify-center bg-black/55 backdrop-blur-md border border-white/35 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-black/70 hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-[var(--hero-chip-bg)] backdrop-blur-md border border-[var(--hero-chip-border)] text-[var(--hero-text)] px-8 py-4 rounded-full text-lg font-medium transition-[transform,opacity,background-color] duration-300 hover:bg-[var(--hero-chip-hover)] hover:scale-105"
               >
                 サークルについて
               </Link>
               <Link
                 href="/recruit"
-                className="tap-target inline-flex items-center justify-center bg-[var(--info-cta)] text-[var(--accent-contrast)] px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-[var(--info-cta-hover)] hover:scale-105"
+                className="tap-target inline-flex items-center justify-center bg-[var(--info-cta)] text-[var(--accent-contrast)] px-8 py-4 rounded-full text-lg font-medium transition-[transform,background-color,opacity] duration-300 hover:bg-[var(--info-cta-hover)] hover:scale-105"
               >
                 メンバー募集
               </Link>
@@ -73,7 +78,12 @@ export default async function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-20 max-w-4xl mx-auto items-start">
             <div className="text-center p-8">
               <div className="w-20 h-20 bg-[var(--surface-muted)] rounded-3xl flex items-center justify-center mx-auto mb-6 border border-[var(--border-subtle)]">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl"></div>
+                <div
+                  className="w-12 h-12 rounded-2xl"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--hero-icon-primary-from), var(--hero-icon-primary-to))',
+                  }}
+                ></div>
               </div>
               <h3 className="text-2xl font-medium text-primary-token mb-4">プログラミング</h3>
               <p className="text-secondary-token font-light leading-relaxed">
@@ -82,7 +92,12 @@ export default async function Home() {
             </div>
             <div className="text-center p-8">
               <div className="w-20 h-20 bg-[var(--surface-muted)] rounded-3xl flex items-center justify-center mx-auto mb-6 border border-[var(--border-subtle)]">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl"></div>
+                <div
+                  className="w-12 h-12 rounded-2xl"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--hero-icon-secondary-from), var(--hero-icon-secondary-to))',
+                  }}
+                ></div>
               </div>
               <h3 className="text-2xl font-medium text-primary-token mb-4">コンテンツ</h3>
               <p className="text-secondary-token font-light leading-relaxed">
@@ -105,21 +120,21 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-primary-token mb-2">{eventsCount}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="text-center rounded-2xl p-4">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-thin text-primary-token mb-2">{eventsCount}</div>
               <div className="text-secondary-token font-light">イベント参加</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-primary-token mb-2">{awardsCount}</div>
+            <div className="text-center rounded-2xl p-4">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-thin text-primary-token mb-2">{awardsCount}</div>
               <div className="text-secondary-token font-light">受賞歴</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-primary-token mb-2">{worksCount}</div>
+            <div className="text-center rounded-2xl p-4">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-thin text-primary-token mb-2">{worksCount}</div>
               <div className="text-secondary-token font-light">制作作品数</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-thin text-primary-token mb-2">{memberCount.active}</div>
+            <div className="text-center rounded-2xl p-4">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-thin text-primary-token mb-2">{memberCount.active}</div>
               <div className="text-secondary-token font-light">メンバー数</div>
             </div>
           </div>

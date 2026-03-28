@@ -68,7 +68,7 @@ export function HomeFeaturedSections({ featuredWorks, latestActivities }: HomeFe
           <div className="text-center mt-16">
             <Link
               href="/activities"
-              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:opacity-90 hover:scale-105"
+              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての活動を見る
             </Link>
@@ -124,7 +124,7 @@ export function HomeFeaturedSections({ featuredWorks, latestActivities }: HomeFe
           <div className="text-center mt-16">
             <Link
               href="/works"
-              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:opacity-90 hover:scale-105"
+              className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
             >
               すべての作品を見る
             </Link>

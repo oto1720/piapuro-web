@@ -60,7 +60,7 @@ export function WorkDetailView({ work }: { work: Work }) {
               href={work.works.trim()}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap-target inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3 text-base font-medium text-[var(--accent-contrast)] transition-all duration-300 hover:opacity-90"
+              className="tap-target inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3 text-base font-medium text-[var(--accent-contrast)] transition-opacity duration-300 hover:opacity-90"
             >
               作品リンクを見る
             </a>

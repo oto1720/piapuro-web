@@ -52,16 +52,16 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="space-y-16">
             {filteredActivities.map((activity) => (
-              <div key={activity.id} className="relative z-0 transition-all duration-300">
+              <div key={activity.id} className="relative z-0">
                 <button
                   type="button"
-                  className="flex w-full flex-col lg:flex-row items-start gap-12 text-left transition-all duration-300 cursor-pointer hover:opacity-95 tap-target"
+                  className="flex w-full flex-col lg:flex-row items-start gap-12 text-left transition-opacity duration-300 cursor-pointer hover:opacity-95 tap-target"
                   onClick={() => setDetailActivity(activity)}
                   aria-label={`${activity.title}の詳細を開く`}
                 >
                   {/* 画像エリア */}
                   <div className="flex-shrink-0 lg:w-1/3 w-full pointer-events-none">
-                    <div className="h-64 relative overflow-hidden bg-[var(--surface-muted)] rounded-3xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border border-[var(--border-subtle)]">
+                    <div className="h-64 relative overflow-hidden bg-[var(--surface-muted)] rounded-3xl transition-[transform,box-shadow] duration-300 hover:shadow-xl hover:scale-[1.02] border border-[var(--border-subtle)]">
                       {activity.image ? (
                         <Image
                           src={activity.image}

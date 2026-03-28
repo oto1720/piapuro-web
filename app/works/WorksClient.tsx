@@ -53,7 +53,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredWorks.map((work) => (
-              <div key={work.id} className="relative z-0 transition-all duration-300">
+              <div key={work.id} className="relative z-0">
                 <InteractiveMediaCard
                   image={work.image}
                   imageAlt={work.title}
@@ -116,13 +116,13 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:opacity-90 hover:scale-105"
+                className="inline-flex items-center justify-center tap-target bg-[var(--accent)] text-[var(--accent-contrast)] px-10 py-4 rounded-full text-lg font-medium transition-[transform,opacity] duration-300 hover:opacity-90 hover:scale-105"
               >
                 お問い合わせ
               </Link>
               <Link
                 href="/recruit"
-                className="inline-flex items-center justify-center tap-target bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
+                className="inline-flex items-center justify-center tap-target bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-primary-token px-10 py-4 rounded-full text-lg font-medium transition-[transform,background-color] duration-300 hover:bg-[var(--surface-muted)] hover:scale-105"
               >
                 メンバー募集
               </Link>

@@ -27,7 +27,7 @@ export default function InteractiveMediaCard({
   return (
     <button
       type="button"
-      className="group w-full text-left rounded-3xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 cursor-pointer tap-target"
+      className="group w-full text-left rounded-3xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 cursor-pointer tap-target"
       onClick={onClick}
       aria-label={ariaLabel}
     >
