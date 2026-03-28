@@ -41,7 +41,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`min-h-11 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
                     ? 'bg-gray-900 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -60,17 +60,11 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredWorks.map((work) => (
               <div key={work.id} className="relative z-0 transition-all duration-300">
-                <div
+                <button
+                  type="button"
                   className="bg-white border border-gray-100 rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2"
                   onClick={() => setDetailWork(work)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setDetailWork(work);
-                    }
-                  }}
+                  aria-label={`${work.title}の詳細を開く`}
                 >
                   <div className="h-64 relative overflow-hidden bg-gray-100 pointer-events-none">
                     {work.image ? (
@@ -126,7 +120,7 @@ export default function WorksClient({ initialWorks }: WorksClientProps) {
                       {work.description}
                     </p>
                   </div>
-                </div>
+                </button>
               </div>
             ))}
           </div>

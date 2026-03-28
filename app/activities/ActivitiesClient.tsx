@@ -40,7 +40,7 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`min-h-11 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
                     ? 'bg-gray-900 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -59,17 +59,11 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
           <div className="space-y-16">
             {filteredActivities.map((activity) => (
               <div key={activity.id} className="relative z-0 transition-all duration-300">
-                <div
-                  className="flex flex-col lg:flex-row items-start gap-12 transition-all duration-300 cursor-pointer hover:opacity-95"
+                <button
+                  type="button"
+                  className="flex w-full flex-col lg:flex-row items-start gap-12 text-left transition-all duration-300 cursor-pointer hover:opacity-95"
                   onClick={() => setDetailActivity(activity)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setDetailActivity(activity);
-                    }
-                  }}
+                  aria-label={`${activity.title}の詳細を開く`}
                 >
                   {/* 画像エリア */}
                   <div className="flex-shrink-0 lg:w-1/3 w-full pointer-events-none">
@@ -124,7 +118,7 @@ export default function ActivitiesClient({ activities }: ActivitiesClientProps) 
                       {activity.description}
                     </p>
                   </div>
-                </div>
+                </button>
               </div>
             ))}
           </div>

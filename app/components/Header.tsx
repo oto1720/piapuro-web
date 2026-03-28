@@ -38,7 +38,9 @@ export default function Header() {
           <button
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="メニューを開く"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -47,13 +49,13 @@ export default function Header() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200">
+          <div id="mobile-navigation" className="md:hidden border-t border-gray-200">
             <div className="py-2 space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 text-sm font-medium transition-colors duration-200"
+                  className="block px-3 py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 text-sm font-medium transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

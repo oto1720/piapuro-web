@@ -58,12 +58,28 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitMessage('');
 
-    setTimeout(() => {
-      setSubmitMessage('お問い合わせありがとうございます。3営業日以内にご返信いたします。');
-      setIsSubmitting(false);
+    try {
+      const subject = `[福大ピアプロ問い合わせ] ${formData.subject}`;
+      const body = [
+        `お名前: ${formData.name}`,
+        `メールアドレス: ${formData.email}`,
+        '',
+        'お問い合わせ内容:',
+        formData.message,
+      ].join('\n');
+
+      const mailto = `mailto:piapuro2024@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+
+      setSubmitMessage('メールアプリを起動しました。内容をご確認のうえ送信してください。');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1000);
+    } catch {
+      setSubmitMessage('メールアプリの起動に失敗しました。piapuro2024@gmail.com まで直接ご連絡ください。');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -124,7 +140,7 @@ export default function Contact() {
 
           <div className="bg-white border border-gray-100 rounded-3xl p-12 shadow-sm">
             {submitMessage && (
-              <div className="mb-8 p-6 bg-green-50 border border-green-100 rounded-2xl">
+              <div className="mb-8 p-6 bg-green-50 border border-green-100 rounded-2xl" role="status" aria-live="polite">
                 <p className="text-green-700 font-light">{submitMessage}</p>
               </div>
             )}
@@ -142,7 +158,7 @@ export default function Contact() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
                     placeholder="山田 太郎"
                   />
                 </div>
@@ -158,7 +174,7 @@ export default function Contact() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                    className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
                     placeholder="example@email.com"
                   />
                 </div>
@@ -174,7 +190,7 @@ export default function Contact() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
+                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300"
                 >
                   <option value="">選択してください</option>
                   <option value="入会希望">入会希望</option>
@@ -196,7 +212,7 @@ export default function Contact() {
                   rows={8}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300 resize-none"
+                  className="w-full px-6 py-4 border border-gray-200 rounded-2xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-300 resize-none"
                   placeholder="お問い合わせ内容をご記入ください..."
                 />
               </div>

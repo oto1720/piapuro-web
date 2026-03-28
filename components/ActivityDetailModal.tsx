@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Activity } from '@/lib/api';
 import { ActivityDetailView } from './ActivityDetailView';
 
@@ -10,17 +10,60 @@ interface ActivityDetailModalProps {
 }
 
 export default function ActivityDetailModal({ activity, onClose }: ActivityDetailModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusedRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!activity) return;
     const prev = document.body.style.overflow;
+    previousFocusedRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     document.body.style.overflow = 'hidden';
+
+    const dialog = dialogRef.current;
+    if (dialog) {
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        dialog.focus();
+      }
+    }
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+
+      if (e.key === 'Tab' && dialog) {
+        const focusable = dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (focusable.length === 0) {
+          e.preventDefault();
+          dialog.focus();
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
+
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
+      previousFocusedRef.current?.focus();
     };
   }, [activity, onClose]);
 
@@ -39,7 +82,7 @@ export default function ActivityDetailModal({ activity, onClose }: ActivityDetai
         onClick={onClose}
         aria-label="閉じる"
       />
-      <div className="relative w-full max-w-6xl">
+      <div ref={dialogRef} tabIndex={-1} className="relative w-full max-w-6xl">
         <button
           type="button"
           onClick={onClose}
